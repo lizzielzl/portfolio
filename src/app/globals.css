@@ -45,6 +45,10 @@ body {
   background: var(--background);
 }
 
+.sidebar-home {
+  background: transparent;
+}
+
 .main-content {
   flex: 1;
   min-width: 0;

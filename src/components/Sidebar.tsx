@@ -105,10 +105,12 @@ export default function Sidebar() {
     </>
   );
 
+  const isHome = pathname === "/";
+
   return (
     <>
       {/* Desktop sidebar */}
-      <aside className="sidebar sidebar-desktop">
+      <aside className={`sidebar sidebar-desktop${isHome ? " sidebar-home" : ""}`}>
         {sidebarContent}
       </aside>
 
