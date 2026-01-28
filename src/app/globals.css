@@ -296,6 +296,10 @@ body {
   .gallery-section {
     padding: 24px;
   }
+
+  .image-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
 }
 
 /* Responsive — small screens */
@@ -389,5 +393,9 @@ body {
 
   .stats-row {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .image-grid {
+    grid-template-columns: 1fr !important;
   }
 }

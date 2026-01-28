@@ -12,6 +12,8 @@ interface ProjectSection {
   title: string;
   description: string;
   images: string[]; // image filenames relative to /images/{slug}/
+  columns?: number; // grid columns for image gallery (default 4)
+  fullWidthImages?: number[]; // indices of images that should be full-width (1 col)
 }
 
 interface ProjectDetail {
@@ -21,7 +23,6 @@ interface ProjectDetail {
   keywords: string[];
   tools: string[];
   sections: ProjectSection[];
-
 }
 
 function getProjectImages(slug: string): string[] {
@@ -50,6 +51,8 @@ const projectDetails: Record<string, ProjectDetail> = {
         title: "Desktop App Design",
         description:
           "Indigo meets users where they work, not in another browser tab. One system for meetings, assistants, and commands on macOS and Windows.",
+        columns: 4,
+        fullWidthImages: [0, 1],
         images: [
           "01-hero.gif",
           "02-structure.png",
@@ -71,12 +74,14 @@ const projectDetails: Record<string, ProjectDetail> = {
         title: "Design System",
         description:
           "I created the AI OS Design System for Indigo, covering text, color, and effect styles; reusable UI components; and scalable variables for color, spacing, and typography. The system supports seamless switching between light and dark modes, as well as theming with different primary colors and typefaces.",
+        columns: 2,
         images: ["15-ds-1.jpg", "16-ds-2.jpg"],
       },
       {
         title: "Website & Brand Assets Design",
         description:
           "I designed Indigo's marketing websites and all brand assets, including logos, brand guidelines, socials, and animations.",
+        columns: 4,
         images: [
           "17-web-1.jpg",
           "18-web-2.jpg",
@@ -217,7 +222,7 @@ export default async function ProjectPage({ params }: PageProps) {
     const perSection = Math.ceil(contentImages.length / sectionCount);
     const start = i * perSection;
     const sectionImages = contentImages.slice(start, start + perSection);
-    return { ...section, images: sectionImages };
+    return { ...section, images: sectionImages, columns: section.columns || 4 };
   });
 
   // Hero image is always the first
@@ -300,32 +305,68 @@ export default async function ProjectPage({ params }: PageProps) {
             {section.description}
           </p>
           {/* Image gallery */}
-          <div style={{ marginTop: 24, display: "flex", flexDirection: "column", gap: 16 }}>
-            {section.images.map((img, j) => (
-              <div
-                key={j}
-                className="gallery-section"
-                style={{
-                  position: "relative",
-                  width: "100%",
-                  overflow: "hidden",
-                }}
-              >
-                <Image
-                  src={`/images/${slug}/${img}`}
-                  alt={`${project.title} - ${section.title} ${j + 1}`}
-                  width={1440}
-                  height={900}
-                  style={{
-                    width: "100%",
-                    height: "auto",
-                    display: "block",
-                  }}
-                  unoptimized={img.endsWith(".gif")}
-                />
+          {(() => {
+            const cols = section.columns || 4;
+            const fullWidth = section.fullWidthImages || [];
+            // Separate full-width images from grid images
+            const fullWidthImgs = section.images.filter((_, j) => fullWidth.includes(j));
+            const gridImgs = section.images.filter((_, j) => !fullWidth.includes(j));
+            return (
+              <div style={{ marginTop: 24 }}>
+                {/* Full-width images first */}
+                {fullWidthImgs.map((img, j) => (
+                  <div
+                    key={`fw-${j}`}
+                    className="gallery-section"
+                    style={{
+                      width: "100%",
+                      overflow: "hidden",
+                      marginBottom: 16,
+                    }}
+                  >
+                    <Image
+                      src={`/images/${slug}/${img}`}
+                      alt={`${project.title} - ${section.title}`}
+                      width={1440}
+                      height={900}
+                      style={{ width: "100%", height: "auto", display: "block" }}
+                      unoptimized={img.endsWith(".gif")}
+                    />
+                  </div>
+                ))}
+                {/* Grid images */}
+                {gridImgs.length > 0 && (
+                  <div
+                    className="image-grid"
+                    style={{
+                      display: "grid",
+                      gridTemplateColumns: `repeat(${cols}, 1fr)`,
+                      gap: 16,
+                    }}
+                  >
+                    {gridImgs.map((img, j) => (
+                      <div
+                        key={j}
+                        style={{
+                          overflow: "hidden",
+                          background: "var(--gray-light)",
+                        }}
+                      >
+                        <Image
+                          src={`/images/${slug}/${img}`}
+                          alt={`${project.title} - ${section.title} ${j + 1}`}
+                          width={720}
+                          height={450}
+                          style={{ width: "100%", height: "auto", display: "block" }}
+                          unoptimized={img.endsWith(".gif")}
+                        />
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
-            ))}
-          </div>
+            );
+          })()}
         </div>
       ))}
 
