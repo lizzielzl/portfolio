@@ -238,6 +238,7 @@ export default async function ProjectPage({ params }: PageProps) {
 
       {/* Headline + Date */}
       <div
+        className="headline-row"
         style={{
           display: "flex",
           justifyContent: "space-between",
@@ -248,7 +249,7 @@ export default async function ProjectPage({ params }: PageProps) {
         <h1 style={{ fontSize: 33, fontWeight: 400, lineHeight: 1.3, letterSpacing: "-2px", maxWidth: "70%" }}>
           {details.headline}
         </h1>
-        <span style={{ fontSize: 12, color: "var(--gray-mid)" }}>
+        <span className="headline-date" style={{ fontSize: 12, color: "var(--gray-mid)" }}>
           {details.date}
         </span>
       </div>

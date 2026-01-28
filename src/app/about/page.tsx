@@ -25,7 +25,7 @@ export default function AboutPage() {
       <div className="page-title">About</div>
 
       {/* Bio + Photo */}
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 48, marginBottom: 48 }}>
+      <div className="about-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 48, marginBottom: 48 }}>
         <div>
           <p style={{ fontSize: 14, lineHeight: 1.4, marginBottom: 16 }}>
             Hi! This is Zili Liu. You can call me Lizzie :)
