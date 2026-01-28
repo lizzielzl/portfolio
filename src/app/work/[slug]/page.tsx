@@ -245,10 +245,10 @@ export default async function ProjectPage({ params }: PageProps) {
           marginBottom: 16,
         }}
       >
-        <h1 style={{ fontSize: 32, fontWeight: 400, lineHeight: 1.3, maxWidth: "70%" }}>
+        <h1 style={{ fontSize: 33, fontWeight: 400, lineHeight: 1.3, letterSpacing: "-2px", maxWidth: "70%" }}>
           {details.headline}
         </h1>
-        <span style={{ fontSize: 13, color: "var(--gray-mid)" }}>
+        <span style={{ fontSize: 12, color: "var(--gray-mid)" }}>
           {details.date}
         </span>
       </div>
@@ -257,7 +257,7 @@ export default async function ProjectPage({ params }: PageProps) {
         <div
           style={{
             display: "inline-block",
-            fontSize: 12,
+            fontSize: 13,
             border: "1px solid var(--foreground)",
             padding: "4px 12px",
             marginBottom: 24,
@@ -277,7 +277,7 @@ export default async function ProjectPage({ params }: PageProps) {
         <div>
           <div className="info-label">Keywords</div>
           {details.keywords.map((k) => (
-            <div key={k} style={{ fontSize: 13 }}>
+            <div key={k} style={{ fontSize: 12, letterSpacing: "-0.5px" }}>
               — {k}
             </div>
           ))}
@@ -285,7 +285,7 @@ export default async function ProjectPage({ params }: PageProps) {
         <div>
           <div className="info-label">Tools</div>
           {details.tools.map((t) => (
-            <div key={t} style={{ fontSize: 13 }}>
+            <div key={t} style={{ fontSize: 12, letterSpacing: "-0.5px" }}>
               — {t}
             </div>
           ))}
@@ -298,14 +298,16 @@ export default async function ProjectPage({ params }: PageProps) {
         <div key={i} style={{ marginTop: 48 }}>
           <h2
             style={{
-              fontSize: 18,
-              fontWeight: 500,
+              fontSize: 12,
+              fontWeight: 600,
+              textTransform: "uppercase" as const,
+              lineHeight: 1.4,
               marginBottom: 12,
             }}
           >
             {section.title}
           </h2>
-          <p style={{ fontSize: 15, lineHeight: 1.7, maxWidth: 700, color: "#333" }}>
+          <p style={{ fontSize: 18, lineHeight: 1.4, maxWidth: 700 }}>
             {section.description}
           </p>
           {/* Image gallery */}
@@ -354,7 +356,7 @@ export default async function ProjectPage({ params }: PageProps) {
 
       {/* Back to work */}
       <div style={{ marginTop: 64, paddingTop: 32, borderTop: "1px solid #e0e0e0" }}>
-        <Link href="/work" style={{ fontSize: 13, textTransform: "uppercase" }}>
+        <Link href="/work" style={{ fontSize: 12, textTransform: "uppercase" }}>
           ← Back to all work
         </Link>
       </div>

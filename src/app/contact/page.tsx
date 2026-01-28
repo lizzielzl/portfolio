@@ -12,7 +12,7 @@ export default function ContactPage() {
       <div style={{ maxWidth: 600 }}>
         <div className="page-title">Let&apos;s Talk</div>
 
-        <p style={{ fontSize: 15, lineHeight: 1.8, marginBottom: 32 }}>
+        <p style={{ fontSize: 14, lineHeight: 1.4, marginBottom: 32 }}>
           For new business inquiries, collaborations, or just to say hello — feel free to reach out.
         </p>
 
@@ -70,7 +70,7 @@ export default function ContactPage() {
           <div className="section-label" style={{ marginBottom: 8 }}>
             Location
           </div>
-          <p style={{ fontSize: 15 }}>Los Angeles, CA, USA (GMT-8)</p>
+          <p style={{ fontSize: 14 }}>Los Angeles, CA, USA (GMT-8)</p>
         </div>
       </div>
     </div>

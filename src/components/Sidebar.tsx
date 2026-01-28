@@ -35,7 +35,7 @@ export default function Sidebar() {
         </div>
 
         {/* Location */}
-        <div style={{ fontSize: 12, textTransform: "uppercase", marginTop: 48, lineHeight: 1.4 }}>
+        <div style={{ fontSize: 12, textTransform: "uppercase", marginTop: 48, lineHeight: 1.2 }}>
           Los Angeles<br />
           CA, USA (GMT-8)
         </div>

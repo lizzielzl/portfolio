@@ -27,10 +27,10 @@ export default function AboutPage() {
       {/* Bio + Photo */}
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 48, marginBottom: 48 }}>
         <div>
-          <p style={{ fontSize: 15, lineHeight: 1.8, marginBottom: 16 }}>
+          <p style={{ fontSize: 14, lineHeight: 1.4, marginBottom: 16 }}>
             Hi! This is Zili Liu. You can call me Lizzie :)
           </p>
-          <p style={{ fontSize: 15, lineHeight: 1.8, marginBottom: 16 }}>
+          <p style={{ fontSize: 14, lineHeight: 1.4, marginBottom: 16 }}>
             I&apos;m a product designer with <strong>4</strong> years of experience in UI/UX design,
             visual and motion design. Currently, I&apos;m the lead designer for two AI products. One
             of them (Indigo) ranked <strong>#1 on Product Hunt</strong>, while the other (Voyage) is{" "}
@@ -40,17 +40,17 @@ export default function AboutPage() {
             inception to production, build and maintain design systems, develop art direction and
             brand assets, and conduct user research and testing.
           </p>
-          <p style={{ fontSize: 15, lineHeight: 1.8, marginBottom: 16 }}>
+          <p style={{ fontSize: 14, lineHeight: 1.4, marginBottom: 16 }}>
             Before fully transitioning to design, I spent <strong>2</strong> years working as a
             digital marketer for leading companies in the PR and fashion industries. I&apos;m also a
             social media content creator with <strong>100K+ followers</strong> and{" "}
             <strong>1M+ likes</strong>, focusing on lifestyle and dance.
           </p>
-          <p style={{ fontSize: 15, lineHeight: 1.8, marginBottom: 16 }}>
+          <p style={{ fontSize: 14, lineHeight: 1.4, marginBottom: 16 }}>
             I merge my specialties in creative design and digital marketing to create research-driven
             and customer-focused experiences that are innovative, engaging, effective, and on-brand.
           </p>
-          <p style={{ fontSize: 15, lineHeight: 1.8 }}>
+          <p style={{ fontSize: 14, lineHeight: 1.4 }}>
             I specialize in both B2B and B2C products in AI, e-commerce and social media industries,
             across desktop, web and mobile platforms.
           </p>
@@ -68,13 +68,13 @@ export default function AboutPage() {
 
       {/* Testimonial */}
       <div style={{ maxWidth: 600, marginLeft: "auto", marginBottom: 48 }}>
-        <p style={{ fontSize: 15, lineHeight: 1.8, marginBottom: 12 }}>
+        <p style={{ fontSize: 14, lineHeight: 1.4, marginBottom: 12 }}>
           Stakeholders who have worked with me often refer to me as an &ldquo;intuitive designer.&rdquo;
         </p>
         <p style={{ fontSize: 18, fontWeight: 600, fontStyle: "italic", marginBottom: 16 }}>
           &ldquo;Lizzie is good at figuring things out.&rdquo;
         </p>
-        <p style={{ fontSize: 15, lineHeight: 1.8 }}>
+        <p style={{ fontSize: 14, lineHeight: 1.4 }}>
           As a designer for AI products in a fast-paced startup environment — where everything is new
           and rapidly evolving — I strive to stay up-to-date with emerging technologies, trends, and
           features. I actively integrate AI tools such as Cursor and v0 into my design process, and
