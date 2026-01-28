@@ -1,22 +1,42 @@
+import Image from "next/image";
 import Link from "next/link";
+import fs from "fs";
+import path from "path";
 import { projects } from "@/lib/projects";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
 }
 
-const projectDetails: Record<
-  string,
-  {
-    headline: string;
-    date: string;
-    summary: string;
-    keywords: string[];
-    tools: string[];
-    sections: { title: string; description: string }[];
-    status?: string;
+interface ProjectSection {
+  title: string;
+  description: string;
+  images: string[]; // image filenames relative to /images/{slug}/
+}
+
+interface ProjectDetail {
+  headline: string;
+  date: string;
+  summary: string;
+  keywords: string[];
+  tools: string[];
+  sections: ProjectSection[];
+  status?: string;
+}
+
+function getProjectImages(slug: string): string[] {
+  const dir = path.join(process.cwd(), "public", "images", slug);
+  try {
+    return fs
+      .readdirSync(dir)
+      .filter((f: string) => /\.(jpg|jpeg|png|gif|webp)$/i.test(f))
+      .sort();
+  } catch {
+    return [];
   }
-> = {
+}
+
+const projectDetails: Record<string, ProjectDetail> = {
   indigo: {
     headline: "Building an AI copilot for high-performance teams",
     date: "Jun 2024 - Present",
@@ -30,16 +50,47 @@ const projectDetails: Record<
         title: "Desktop App Design",
         description:
           "Indigo meets users where they work, not in another browser tab. One system for meetings, assistants, and commands on macOS and Windows.",
+        images: [
+          "01-hero.gif",
+          "02-structure.png",
+          "03-app-1.jpg",
+          "04-app-2.jpg",
+          "05-app-3.jpg",
+          "06-app-4.jpg",
+          "07-app-5.jpg",
+          "08-app-6.jpg",
+          "09-app-7.jpg",
+          "10-app-8.jpg",
+          "11-app-9.jpg",
+          "12-app-10.jpg",
+          "13-app-11.jpg",
+          "14-app-12.jpg",
+        ],
       },
       {
         title: "Design System",
         description:
           "I created the AI OS Design System for Indigo, covering text, color, and effect styles; reusable UI components; and scalable variables for color, spacing, and typography. The system supports seamless switching between light and dark modes, as well as theming with different primary colors and typefaces.",
+        images: ["15-ds-1.jpg", "16-ds-2.jpg"],
       },
       {
         title: "Website & Brand Assets Design",
         description:
           "I designed Indigo's marketing websites and all brand assets, including logos, brand guidelines, socials, and animations.",
+        images: [
+          "17-web-1.jpg",
+          "18-web-2.jpg",
+          "19-web-3.jpg",
+          "20-web-4.jpg",
+          "21-web-5.jpg",
+          "22-web-6.jpg",
+          "23-web-7.jpg",
+          "24-web-8.jpg",
+          "25-web-9.jpg",
+          "26-web-10.jpg",
+          "27-web-11.jpg",
+          "28-web-12.jpg",
+        ],
       },
     ],
   },
@@ -49,7 +100,7 @@ const projectDetails: Record<
     date: "Aug 2024 - Present",
     status: "Live Project",
     summary:
-      "Voyage is an SMS marketing and messaging platform that helps e-commerce brands drive revenue and build customer loyalty at scale.",
+      "Voyage is an SMS marketing and messaging platform that helps e-commerce brands drive revenue and build customer loyalty at scale. Our goal is to enable brands to foster thoughtful, authentic interactions with their customers and build community.",
     keywords: ["AI", "E-Commerce", "SMS Marketing"],
     tools: ["Figma"],
     sections: [
@@ -57,26 +108,37 @@ const projectDetails: Record<
         title: "Web App Design",
         description:
           "Voyage's web app is a powerful marketing platform that includes Venus (LiveRecover), Earth (Customers), Jupiter (Campaigns), and more.",
+        images: [], // will be auto-filled
       },
       {
         title: "Design System & Modes",
         description:
           "I'm building and maintaining the Stellar Design System for all of Voyage's products. I designed two modes — dark and light — allowing users to switch between them based on their preference.",
+        images: [],
       },
       {
         title: "Brand Assets Design",
         description:
           "I designed Voyage's brand assets, including socials, one-pagers, graphics, and merch.",
+        images: [],
       },
     ],
   },
   quarters: {
     headline: "Designing a modern web application",
     date: "2024",
-    summary: "Quarters is a web application project.",
+    summary:
+      "Quarters is a web application project focused on clean design and intuitive user experience.",
     keywords: ["Web App"],
     tools: ["Figma"],
-    sections: [],
+    sections: [
+      {
+        title: "Product Design",
+        description:
+          "Full product design including user flows, interface design, and component systems.",
+        images: [],
+      },
+    ],
   },
   shopswap: {
     headline: "Growing a B2B SaaS platform to 300+ brands",
@@ -90,24 +152,41 @@ const projectDetails: Record<
         title: "Product Design",
         description:
           "I led product design from inception to production, built and maintained design systems, developed art direction and brand assets, and conducted user research and testing.",
+        images: [],
       },
     ],
   },
   foodies: {
     headline: "A food discovery mobile app",
     date: "2023",
-    summary: "Foodies is a mobile app for food and restaurant discovery.",
+    summary:
+      "Foodies is a mobile app for food and restaurant discovery, helping users find great places to eat nearby.",
     keywords: ["Mobile", "Food"],
     tools: ["Figma"],
-    sections: [],
+    sections: [
+      {
+        title: "Mobile App Design",
+        description:
+          "Complete mobile app design from concept to high-fidelity screens.",
+        images: [],
+      },
+    ],
   },
   nexev: {
     headline: "Discover events in your neighborhood",
     date: "2023",
-    summary: "Nexev is a mobile app for discovering local events.",
+    summary:
+      "Nexev is a mobile app for discovering local events and connecting with your community.",
     keywords: ["Mobile", "Events"],
     tools: ["Figma"],
-    sections: [],
+    sections: [
+      {
+        title: "Mobile App Design",
+        description:
+          "Complete mobile app design for local event discovery.",
+        images: [],
+      },
+    ],
   },
 };
 
@@ -124,6 +203,25 @@ export default async function ProjectPage({ params }: PageProps) {
       </div>
     );
   }
+
+  // Get all images for this project from the filesystem
+  const allImages = getProjectImages(slug);
+
+  // For projects where section images aren't manually mapped,
+  // distribute all images across sections evenly
+  const sections = details.sections.map((section, i) => {
+    if (section.images.length > 0) return section;
+    // Auto-distribute: skip first image (hero), split rest across sections
+    const contentImages = allImages.slice(1); // skip hero GIF
+    const sectionCount = details.sections.length;
+    const perSection = Math.ceil(contentImages.length / sectionCount);
+    const start = i * perSection;
+    const sectionImages = contentImages.slice(start, start + perSection);
+    return { ...section, images: sectionImages };
+  });
+
+  // Hero image is always the first
+  const heroImage = allImages.length > 0 ? allImages[0] : null;
 
   return (
     <div style={{ padding: "32px 40px" }}>
@@ -195,8 +293,8 @@ export default async function ProjectPage({ params }: PageProps) {
         <div />
       </div>
 
-      {/* Sections */}
-      {details.sections.map((section, i) => (
+      {/* Sections with images */}
+      {sections.map((section, i) => (
         <div key={i} style={{ marginTop: 48 }}>
           <h2
             style={{
@@ -210,23 +308,49 @@ export default async function ProjectPage({ params }: PageProps) {
           <p style={{ fontSize: 15, lineHeight: 1.7, maxWidth: 700, color: "#333" }}>
             {section.description}
           </p>
-          {/* Image gallery placeholder */}
-          <div className="gallery-section" style={{ marginTop: 24 }}>
-            <div
-              style={{
-                height: 300,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                color: "var(--gray-mid)",
-                fontSize: 14,
-              }}
-            >
-              Project images coming soon
-            </div>
+          {/* Image gallery */}
+          <div style={{ marginTop: 24, display: "flex", flexDirection: "column", gap: 16 }}>
+            {section.images.map((img, j) => (
+              <div
+                key={j}
+                className="gallery-section"
+                style={{
+                  position: "relative",
+                  width: "100%",
+                  overflow: "hidden",
+                }}
+              >
+                <Image
+                  src={`/images/${slug}/${img}`}
+                  alt={`${project.title} - ${section.title} ${j + 1}`}
+                  width={1440}
+                  height={900}
+                  style={{
+                    width: "100%",
+                    height: "auto",
+                    display: "block",
+                  }}
+                  unoptimized={img.endsWith(".gif")}
+                />
+              </div>
+            ))}
           </div>
         </div>
       ))}
+
+      {/* Show hero as first image if no sections have images */}
+      {heroImage && sections.every((s) => s.images.length === 0) && (
+        <div className="gallery-section" style={{ marginTop: 32 }}>
+          <Image
+            src={`/images/${slug}/${heroImage}`}
+            alt={project.title}
+            width={1440}
+            height={900}
+            style={{ width: "100%", height: "auto", display: "block" }}
+            unoptimized={heroImage.endsWith(".gif")}
+          />
+        </div>
+      )}
 
       {/* Back to work */}
       <div style={{ marginTop: 64, paddingTop: 32, borderTop: "1px solid #e0e0e0" }}>
