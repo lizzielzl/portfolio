@@ -21,7 +21,7 @@ interface ProjectDetail {
   keywords: string[];
   tools: string[];
   sections: ProjectSection[];
-  status?: string;
+
 }
 
 function getProjectImages(slug: string): string[] {
@@ -40,7 +40,7 @@ const projectDetails: Record<string, ProjectDetail> = {
   indigo: {
     headline: "Building an AI copilot for high-performance teams",
     date: "Jun 2024 - Present",
-    status: "Live Project",
+
     summary:
       "Indigo is an executive intelligence OS built for teams. We deliver AGI-level business understanding by unifying Real-Time Truth (live decisions) with Institutional Memory (trusted context).",
     keywords: ["AI", "Productivity"],
@@ -98,7 +98,7 @@ const projectDetails: Record<string, ProjectDetail> = {
     headline:
       "Building an SMS marketing and messaging platform for e-commerce brands",
     date: "Aug 2024 - Present",
-    status: "Live Project",
+
     summary:
       "Voyage is an SMS marketing and messaging platform that helps e-commerce brands drive revenue and build customer loyalty at scale. Our goal is to enable brands to foster thoughtful, authentic interactions with their customers and build community.",
     keywords: ["AI", "E-Commerce", "SMS Marketing"],
@@ -254,19 +254,7 @@ export default async function ProjectPage({ params }: PageProps) {
         </span>
       </div>
 
-      {details.status && (
-        <div
-          style={{
-            display: "inline-block",
-            fontSize: 13,
-            border: "1px solid var(--foreground)",
-            padding: "4px 12px",
-            marginBottom: 24,
-          }}
-        >
-          {details.status}
-        </div>
-      )}
+
 
       {/* Divider */}
       <hr style={{ border: "none", borderTop: "1px solid #e0e0e0", margin: "24px 0" }} />
