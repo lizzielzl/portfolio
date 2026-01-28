@@ -229,9 +229,9 @@ export default async function ProjectPage({ params }: PageProps) {
   const heroImage = allImages.length > 0 ? allImages[0] : null;
 
   return (
-    <div style={{ padding: "32px 40px" }}>
+    <div style={{ padding: "30px 60px 60px" }}>
       {/* Breadcrumb */}
-      <div className="breadcrumb">
+      <div className="breadcrumb" style={{ marginBottom: 44 }}>
         <Link href="/">Home</Link>
         <span>&gt;</span>
         <Link href="/work">Work</Link>
@@ -248,7 +248,7 @@ export default async function ProjectPage({ params }: PageProps) {
           display: "flex",
           justifyContent: "space-between",
           alignItems: "baseline",
-          marginBottom: 16,
+          marginBottom: 0,
         }}
       >
         <h1 style={{ fontSize: 33, fontWeight: 400, lineHeight: 1.3, letterSpacing: "-2px", maxWidth: "70%" }}>
@@ -259,19 +259,19 @@ export default async function ProjectPage({ params }: PageProps) {
         </span>
       </div>
 
-
-
       {/* Divider */}
-      <hr style={{ border: "none", borderTop: "1px solid #e0e0e0", margin: "24px 0" }} />
+      <hr style={{ border: "none", borderTop: "1px solid #e0e0e0", margin: "22px 0" }} />
 
       {/* Info row */}
       <div className="info-row">
-        <div className="info-label">Summary</div>
-        <div>{details.summary}</div>
+        <div>
+          <div className="info-label">Summary</div>
+          <div style={{ fontSize: 14, letterSpacing: "-0.5px", lineHeight: 1.4 }}>{details.summary}</div>
+        </div>
         <div>
           <div className="info-label">Keywords</div>
           {details.keywords.map((k) => (
-            <div key={k} style={{ fontSize: 12, letterSpacing: "-0.5px" }}>
+            <div key={k} style={{ fontSize: 12, letterSpacing: "-0.5px", lineHeight: 1.3, marginBottom: 4 }}>
               — {k}
             </div>
           ))}
@@ -279,100 +279,98 @@ export default async function ProjectPage({ params }: PageProps) {
         <div>
           <div className="info-label">Tools</div>
           {details.tools.map((t) => (
-            <div key={t} style={{ fontSize: 12, letterSpacing: "-0.5px" }}>
+            <div key={t} style={{ fontSize: 12, letterSpacing: "-0.5px", lineHeight: 1.3, marginBottom: 4 }}>
               — {t}
             </div>
           ))}
         </div>
-        <div />
       </div>
 
       {/* Sections with images */}
       {sections.map((section, i) => (
-        <div key={i} style={{ marginTop: 48 }}>
+        <div key={i} className="project-section">
           <h2
             style={{
               fontSize: 12,
               fontWeight: 600,
               textTransform: "uppercase" as const,
               lineHeight: 1.4,
-              marginBottom: 12,
+              marginBottom: 0,
             }}
           >
             {section.title}
           </h2>
-          <p style={{ fontSize: 18, lineHeight: 1.4, maxWidth: 700 }}>
-            {section.description}
-          </p>
-          {/* Image gallery */}
-          {(() => {
-            const cols = section.columns || 4;
-            const fullWidth = section.fullWidthImages || [];
-            // Separate full-width images from grid images
-            const fullWidthImgs = section.images.filter((_, j) => fullWidth.includes(j));
-            const gridImgs = section.images.filter((_, j) => !fullWidth.includes(j));
-            return (
-              <div style={{ marginTop: 24 }}>
-                {/* Full-width images first */}
-                {fullWidthImgs.map((img, j) => (
-                  <div
-                    key={`fw-${j}`}
-                    className="gallery-section"
-                    style={{
-                      width: "100%",
-                      overflow: "hidden",
-                      marginBottom: 16,
-                    }}
-                  >
-                    <Image
-                      src={`/images/${slug}/${img}`}
-                      alt={`${project.title} - ${section.title}`}
-                      width={1440}
-                      height={900}
-                      style={{ width: "100%", height: "auto", display: "block" }}
-                      unoptimized={img.endsWith(".gif")}
-                    />
-                  </div>
-                ))}
-                {/* Grid images */}
-                {gridImgs.length > 0 && (
-                  <div
-                    className="image-grid"
-                    style={{
-                      display: "grid",
-                      gridTemplateColumns: `repeat(${cols}, 1fr)`,
-                      gap: 16,
-                    }}
-                  >
-                    {gridImgs.map((img, j) => (
-                      <div
-                        key={j}
-                        style={{
-                          overflow: "hidden",
-                          background: "var(--gray-light)",
-                        }}
-                      >
-                        <Image
-                          src={`/images/${slug}/${img}`}
-                          alt={`${project.title} - ${section.title} ${j + 1}`}
-                          width={720}
-                          height={450}
-                          style={{ width: "100%", height: "auto", display: "block" }}
-                          unoptimized={img.endsWith(".gif")}
-                        />
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-            );
-          })()}
+          <div>
+            <p style={{ fontSize: 14, fontWeight: 400, lineHeight: 1.3, letterSpacing: "-0.5px", marginBottom: 30 }}>
+              {section.description}
+            </p>
+            {/* Image gallery */}
+            {(() => {
+              const cols = section.columns || 4;
+              const fullWidth = section.fullWidthImages || [];
+              const fullWidthImgs = section.images.filter((_, j) => fullWidth.includes(j));
+              const gridImgs = section.images.filter((_, j) => !fullWidth.includes(j));
+              return (
+                <div>
+                  {/* Full-width images first */}
+                  {fullWidthImgs.map((img, j) => (
+                    <div
+                      key={`fw-${j}`}
+                      style={{
+                        width: "100%",
+                        overflow: "hidden",
+                        marginBottom: 10,
+                      }}
+                    >
+                      <Image
+                        src={`/images/${slug}/${img}`}
+                        alt={`${project.title} - ${section.title}`}
+                        width={1440}
+                        height={900}
+                        style={{ width: "100%", height: "auto", display: "block" }}
+                        unoptimized={img.endsWith(".gif")}
+                      />
+                    </div>
+                  ))}
+                  {/* Grid images */}
+                  {gridImgs.length > 0 && (
+                    <div
+                      className="image-grid"
+                      style={{
+                        display: "grid",
+                        gridTemplateColumns: `repeat(${cols}, 1fr)`,
+                        gap: 10,
+                      }}
+                    >
+                      {gridImgs.map((img, j) => (
+                        <div
+                          key={j}
+                          style={{
+                            overflow: "hidden",
+                          }}
+                        >
+                          <Image
+                            src={`/images/${slug}/${img}`}
+                            alt={`${project.title} - ${section.title} ${j + 1}`}
+                            width={720}
+                            height={450}
+                            style={{ width: "100%", height: "auto", display: "block" }}
+                            unoptimized={img.endsWith(".gif")}
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              );
+            })()}
+          </div>
         </div>
       ))}
 
       {/* Show hero as first image if no sections have images */}
       {heroImage && sections.every((s) => s.images.length === 0) && (
-        <div className="gallery-section" style={{ marginTop: 32 }}>
+        <div style={{ marginTop: 32 }}>
           <Image
             src={`/images/${slug}/${heroImage}`}
             alt={project.title}

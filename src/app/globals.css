@@ -244,8 +244,8 @@ body {
 /* Info row (project detail) */
 .info-row {
   display: grid;
-  grid-template-columns: 1fr 2fr 1fr 1fr 1fr;
-  gap: 24px;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 80px;
   padding: 32px 0;
   font-size: 12px;
   letter-spacing: -0.5px;
@@ -256,18 +256,15 @@ body {
   font-weight: 600;
   text-transform: uppercase;
   font-size: 12px;
+  margin-bottom: 0;
 }
 
-/* Image gallery section */
-.gallery-section {
-  background: var(--gray-light);
-  padding: 48px;
-  margin: 32px 0;
-}
-
-.gallery-section img {
-  width: 100%;
-  margin-bottom: 24px;
+/* Project section (label + content grid) */
+.project-section {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  gap: 16px;
+  padding: 60px 0;
 }
 
 /* Responsive — tablet */
@@ -293,8 +290,8 @@ body {
     margin-top: 4px;
   }
 
-  .gallery-section {
-    padding: 24px;
+  .project-section {
+    grid-template-columns: 1fr;
   }
 
   .image-grid {
