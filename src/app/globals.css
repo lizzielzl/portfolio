@@ -264,7 +264,6 @@ body {
   display: grid;
   grid-template-columns: 150px 1fr;
   gap: 16px;
-  padding: 60px 0;
 }
 
 /* Responsive — tablet */

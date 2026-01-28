@@ -287,86 +287,102 @@ export default async function ProjectPage({ params }: PageProps) {
       </div>
 
       {/* Sections with images */}
-      {sections.map((section, i) => (
-        <div key={i} className="project-section">
-          <h2
-            style={{
-              fontSize: 12,
-              fontWeight: 600,
-              textTransform: "uppercase" as const,
-              lineHeight: 1.4,
-              marginBottom: 0,
-            }}
-          >
-            {section.title}
-          </h2>
-          <div>
-            <p style={{ fontSize: 14, fontWeight: 400, lineHeight: 1.3, letterSpacing: "-0.5px", marginBottom: 30 }}>
-              {section.description}
-            </p>
-            {/* Image gallery */}
-            {(() => {
-              const cols = section.columns || 4;
-              const fullWidth = section.fullWidthImages || [];
-              const fullWidthImgs = section.images.filter((_, j) => fullWidth.includes(j));
-              const gridImgs = section.images.filter((_, j) => !fullWidth.includes(j));
-              return (
-                <div>
-                  {/* Full-width images first */}
-                  {fullWidthImgs.map((img, j) => (
-                    <div
-                      key={`fw-${j}`}
-                      style={{
-                        width: "100%",
-                        overflow: "hidden",
-                        marginBottom: 10,
-                      }}
-                    >
-                      <Image
-                        src={`/images/${slug}/${img}`}
-                        alt={`${project.title} - ${section.title}`}
-                        width={1440}
-                        height={900}
-                        style={{ width: "100%", height: "auto", display: "block" }}
-                        unoptimized={img.endsWith(".gif")}
-                      />
-                    </div>
-                  ))}
-                  {/* Grid images */}
-                  {gridImgs.length > 0 && (
-                    <div
-                      className="image-grid"
-                      style={{
-                        display: "grid",
-                        gridTemplateColumns: `repeat(${cols}, 1fr)`,
-                        gap: 10,
-                      }}
-                    >
-                      {gridImgs.map((img, j) => (
-                        <div
-                          key={j}
-                          style={{
-                            overflow: "hidden",
-                          }}
-                        >
-                          <Image
-                            src={`/images/${slug}/${img}`}
-                            alt={`${project.title} - ${section.title} ${j + 1}`}
-                            width={720}
-                            height={450}
-                            style={{ width: "100%", height: "auto", display: "block" }}
-                            unoptimized={img.endsWith(".gif")}
-                          />
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              );
-            })()}
+      {sections.map((section, i) => {
+        const cols = section.columns || 4;
+        const fullWidth = section.fullWidthImages || [];
+        const fullWidthImgs = section.images.filter((_, j) => fullWidth.includes(j));
+        const gridImgs = section.images.filter((_, j) => !fullWidth.includes(j));
+        return (
+          <div key={i}>
+            {/* Section text: 2-col grid (label | description) */}
+            <div style={{ padding: "60px 0" }}>
+              <div className="project-section">
+                <h2
+                  style={{
+                    fontSize: 12,
+                    fontWeight: 600,
+                    textTransform: "uppercase" as const,
+                    lineHeight: 1.4,
+                    marginBottom: 0,
+                  }}
+                >
+                  {section.title}
+                </h2>
+                <p style={{ fontSize: 14, fontWeight: 400, lineHeight: 1.3, letterSpacing: "-0.5px", marginBottom: 0 }}>
+                  {section.description}
+                </p>
+              </div>
+            </div>
+
+            {/* Images: full-width, outside the grid */}
+            {section.images.length > 0 && (
+              <div>
+                {/* Full-width images */}
+                {fullWidthImgs.map((img, j) => (
+                  <div
+                    key={`fw-${j}`}
+                    style={{
+                      width: "100%",
+                      overflow: "hidden",
+                      marginBottom: 10,
+                    }}
+                  >
+                    <Image
+                      src={`/images/${slug}/${img}`}
+                      alt={`${project.title} - ${section.title}`}
+                      width={1440}
+                      height={900}
+                      style={{ width: "100%", height: "auto", display: "block" }}
+                      unoptimized={img.endsWith(".gif")}
+                    />
+                  </div>
+                ))}
+                {/* Grid images */}
+                {gridImgs.length > 0 && (
+                  <div
+                    className="image-grid"
+                    style={{
+                      display: "grid",
+                      gridTemplateColumns: `repeat(${cols}, 1fr)`,
+                      gap: 10,
+                    }}
+                  >
+                    {gridImgs.map((img, j) => (
+                      <div
+                        key={j}
+                        style={{
+                          overflow: "hidden",
+                        }}
+                      >
+                        <Image
+                          src={`/images/${slug}/${img}`}
+                          alt={`${project.title} - ${section.title} ${j + 1}`}
+                          width={720}
+                          height={450}
+                          style={{ width: "100%", height: "auto", display: "block" }}
+                          unoptimized={img.endsWith(".gif")}
+                        />
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* Full-width section divider */}
+            {section.images.length > 0 && (
+              <div
+                style={{
+                  width: "100%",
+                  height: 1,
+                  background: "#222",
+                  marginTop: 80,
+                }}
+              />
+            )}
           </div>
-        </div>
-      ))}
+        );
+      })}
 
       {/* Show hero as first image if no sections have images */}
       {heroImage && sections.every((s) => s.images.length === 0) && (
