@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useState, useEffect } from "react";
 
 const navLinks = [
   { href: "/work", label: "Work" },
@@ -17,9 +18,27 @@ const socialLinks = [
 
 export default function Sidebar() {
   const pathname = usePathname();
+  const [menuOpen, setMenuOpen] = useState(false);
 
-  return (
-    <aside className="sidebar">
+  // Close menu on route change
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [pathname]);
+
+  // Prevent body scroll when menu is open
+  useEffect(() => {
+    if (menuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [menuOpen]);
+
+  const sidebarContent = (
+    <>
       <div>
         {/* Name / Logo */}
         <div style={{ marginBottom: 8 }}>
@@ -83,6 +102,56 @@ export default function Sidebar() {
           </a>
         </div>
       </div>
-    </aside>
+    </>
+  );
+
+  return (
+    <>
+      {/* Desktop sidebar */}
+      <aside className="sidebar sidebar-desktop">
+        {sidebarContent}
+      </aside>
+
+      {/* Mobile header */}
+      <div className="mobile-header">
+        <div>
+          <Link href="/" style={{ textDecoration: "none", color: "inherit" }}>
+            <div style={{ fontSize: 28, fontWeight: 700, letterSpacing: "-0.02em", lineHeight: 1.1 }}>
+              ZILI LIU
+            </div>
+          </Link>
+          <div style={{ fontSize: 13, marginTop: 4, lineHeight: 1.4 }}>
+            / Product Designer<br />
+            / Content Creator
+          </div>
+        </div>
+        <button
+          className="hamburger-btn"
+          onClick={() => setMenuOpen(true)}
+          aria-label="Open menu"
+        >
+          <span className="hamburger-line" />
+          <span className="hamburger-line" />
+          <span className="hamburger-line" />
+        </button>
+      </div>
+
+      {/* Mobile menu overlay */}
+      <div className={`mobile-menu-overlay ${menuOpen ? "open" : ""}`}>
+        <button
+          className="close-btn"
+          onClick={() => setMenuOpen(false)}
+          aria-label="Close menu"
+        >
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <line x1="18" y1="6" x2="6" y2="18" />
+            <line x1="6" y1="6" x2="18" y2="18" />
+          </svg>
+        </button>
+        <div className="mobile-menu-content">
+          {sidebarContent}
+        </div>
+      </div>
+    </>
   );
 }
