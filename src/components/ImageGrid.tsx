@@ -31,7 +31,7 @@ export default function ImageGrid({
     <div>
       {/* Click to expand hint */}
       <div className="expand-hint">
-        <span style={{ display: "inline-block", width: 40, height: 1, background: "var(--gray-mid)", verticalAlign: "middle", marginRight: 12 }} />
+        <div style={{ width: 55, height: 1, background: "#e6e6e6", margin: "0 auto 8px" }} />
         Click to expand images
       </div>
 

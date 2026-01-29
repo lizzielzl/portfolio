@@ -58,12 +58,12 @@ const projectDetails: Record<string, ProjectDetail> = {
               Problem
             </h2>
             <p style={{ fontSize: 14, fontWeight: 400, lineHeight: 1.3, letterSpacing: "-0.5px", marginBottom: 30 }}>
-              Everyone is waiting for AGI to understand their business. But it never will.
+              Everyone is waiting for AGI to understand their business. <strong>But it never will.</strong>
             </p>
             <p style={{ fontSize: 14, fontWeight: 400, lineHeight: 1.3, letterSpacing: "-0.5px", marginBottom: 30 }}>
               Because:
             </p>
-            <ul style={{ fontSize: 14, fontWeight: 400, lineHeight: 1.3, letterSpacing: "-0.5px", paddingLeft: 20, marginBottom: 30 }}>
+            <ul style={{ fontSize: 14, fontWeight: 400, lineHeight: 1.3, letterSpacing: "-0.5px", paddingLeft: 20, marginBottom: 30, listStyleType: "disc" }}>
               <li style={{ marginBottom: 15 }}>Decisions hide in meetings, Slack, email, and task tools.</li>
               <li style={{ marginBottom: 15 }}>Context is scattered across Notion, Drive, and docs.</li>
               <li style={{ marginBottom: 15 }}>OpenAI, Anthropic, and others change weekly—no safe single bet.</li>
