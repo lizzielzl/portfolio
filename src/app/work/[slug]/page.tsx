@@ -387,7 +387,7 @@ export default async function ProjectPage({ params }: PageProps) {
                 style={{
                   width: "100%",
                   height: 1,
-                  background: "#222",
+                  background: "#e0e0e0",
                   marginTop: 80,
                 }}
               />
@@ -426,7 +426,7 @@ export default async function ProjectPage({ params }: PageProps) {
                     alt={p.title}
                     width={400}
                     height={300}
-                    style={{ maxWidth: "85%", maxHeight: "85%", objectFit: "contain" }}
+                    style={{ width: "100%", height: "auto", display: "block" }}
                     unoptimized={p.thumbnail.endsWith(".gif")}
                   />
                 </div>

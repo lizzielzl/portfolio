@@ -14,7 +14,7 @@ function ProjectCard({ project }: { project: (typeof projects)[number] }) {
           alt={project.title}
           width={400}
           height={300}
-          style={{ maxWidth: "85%", maxHeight: "85%", objectFit: "contain" }}
+          style={{ width: "100%", height: "auto", display: "block" }}
           unoptimized={project.thumbnail.endsWith(".gif")}
         />
       </div>
