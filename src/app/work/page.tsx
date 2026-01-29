@@ -64,10 +64,12 @@ export default function WorkPage() {
         {categories.map((cat) => (
           <button
             key={cat.id}
-            className={`category-tab ${activeCategory === cat.id ? "active" : ""}`}
+            className={`category-tab bracket-btn ${activeCategory === cat.id ? "active" : ""}`}
             onClick={() => setActiveCategory(cat.id)}
           >
-            [{cat.label}&nbsp;&nbsp;{cat.count}]
+            <span className="bracket bracket-left">[</span>
+            <span className="bracket-label">{cat.label}&nbsp;&nbsp;{cat.count}</span>
+            <span className="bracket bracket-right">]</span>
           </button>
         ))}
       </div>

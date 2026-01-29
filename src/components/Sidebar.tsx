@@ -65,9 +65,11 @@ export default function Sidebar() {
           <Link
             key={link.href}
             href={link.href}
-            className={`nav-link ${pathname.startsWith(link.href) ? "active" : ""}`}
+            className={`nav-link bracket-btn ${pathname.startsWith(link.href) ? "active" : ""}`}
           >
-            [{link.label}]
+            <span className="bracket bracket-left">[</span>
+            <span className="bracket-label">{link.label}</span>
+            <span className="bracket bracket-right">]</span>
           </Link>
         ))}
       </div>
