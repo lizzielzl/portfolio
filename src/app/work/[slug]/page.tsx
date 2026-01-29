@@ -152,27 +152,52 @@ const projectDetails: Record<string, ProjectDetail> = {
     date: "Aug 2024 - Present",
 
     summary:
-      "Voyage is an SMS marketing and messaging platform that helps e-commerce brands drive revenue and build customer loyalty at scale. Our goal is to enable brands to foster thoughtful, authentic interactions with their customers and build community.",
+      "Voyage is an SMS marketing and messaging platform that helps e-commerce brands drive revenue and build customer loyalty at scale. Our goal is to enable brands to foster thoughtful, authentic interactions with their customers and build community. While developing texting solutions, I am also helping Voyage design a powerful marketing ecosystem that leverages AI for customer and campaign management.",
     keywords: ["AI", "E-Commerce", "SMS Marketing"],
     tools: ["Figma"],
     sections: [
       {
         title: "Web App Design",
-        description:
-          "Voyage's web app is a powerful marketing platform that includes Venus (LiveRecover), Earth (Customers), Jupiter (Campaigns), and more.",
-        images: [], // will be auto-filled
+        description: "",
+        richContent: (
+          <>
+            <p style={{ fontSize: 14, fontWeight: 300, lineHeight: 1.3, letterSpacing: "-0.5px", marginBottom: 20, marginTop: 0 }}>
+              Voyage{"\u2019"}s web app is a powerful marketing platform / universe that includes:
+            </p>
+            <ul style={{ fontSize: 14, fontWeight: 300, lineHeight: 1.3, letterSpacing: "-0.5px", paddingLeft: 20, marginBottom: 0, listStyleType: "disc" }}>
+              <li style={{ marginBottom: 10 }}><strong>Venus (LiveRecover):</strong> An SMS marketing tool that helps e-commerce brands engage customers and drive sales through live agents, including abandoned checkout recovery and post-purchase engagement.</li>
+              <li style={{ marginBottom: 10 }}><strong>Earth (Customers):</strong> A customer and segment management system.</li>
+              <li style={{ marginBottom: 10 }}><strong>Jupiter (Campaigns):</strong> A campaign creation and management tool.</li>
+              <li style={{ marginBottom: 0 }}>And more to come{"\u2026"}</li>
+            </ul>
+          </>
+        ),
+        columns: 4,
+        images: [
+          "01.png", "02.png", "03.png", "04.png",
+          "05.png", "06.png", "07.png", "08.png",
+          "09.png", "10.png", "11.png", "12.png",
+          "13.png", "14.png", "15.png", "16.png",
+          "17.png", "18.png", "19.png", "20.png",
+        ],
       },
       {
         title: "Design System & Modes",
         description:
-          "I'm building and maintaining the Stellar Design System for all of Voyage's products. I designed two modes — dark and light — allowing users to switch between them based on their preference.",
-        images: [],
+          "I\u2019m building and maintaining the Stellar Design System for all of Voyage\u2019s products. When creating color variables, I designed two modes - dark and light - allowing users to switch between them based on their preference.",
+        columns: 4,
+        images: ["21.png", "22.png", "23.png", "24.png"],
       },
       {
         title: "Brand Assets Design",
         description:
-          "I designed Voyage's brand assets, including socials, one-pagers, graphics, and merch.",
-        images: [],
+          "I designed Voyage\u2019s brand assets, including socials, one-pagers, graphics, and merch.",
+        columns: 4,
+        images: [
+          "25.png", "26.png", "27.png", "28.png",
+          "29.png", "30.png", "31.png", "32.png",
+          "33.png", "35.png", "36.png", "37.png",
+        ],
       },
     ],
   },
