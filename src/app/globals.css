@@ -37,7 +37,7 @@ body {
   width: var(--sidebar-width);
   min-width: var(--sidebar-width);
   height: 100vh;
-  padding: 32px 20px;
+  padding: 30px 22px 14px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
