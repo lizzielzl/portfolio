@@ -308,7 +308,7 @@ export default async function ProjectPage({ params }: PageProps) {
                 >
                   {section.title}
                 </h2>
-                <p style={{ fontSize: 14, fontWeight: 400, lineHeight: 1.3, letterSpacing: "-0.5px", marginBottom: 0 }}>
+                <p style={{ fontSize: 14, fontWeight: 300, lineHeight: 1.3, letterSpacing: "-0.5px", marginBottom: 0 }}>
                   {section.description}
                 </p>
               </div>
