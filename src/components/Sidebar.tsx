@@ -69,6 +69,11 @@ export default function Sidebar() {
           >
             <span className="bracket bracket-left">[</span>
             <span className="bracket-label">{link.label}</span>
+            <span className="bracket-arrow">
+              <svg width="16" height="20" viewBox="0 0 16 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fillRule="evenodd" clipRule="evenodd" d="M9.32192 5.61149L6.17487 11.0623L5.30884 10.5623L8.39275 5.22085L5.0018 6.12945L4.74298 5.16352L9.86912 3.78998L11.257 8.96948L10.2911 9.2283L9.32192 5.61149Z" fill="currentColor"/>
+              </svg>
+            </span>
             <span className="bracket bracket-right">]</span>
           </Link>
         ))}

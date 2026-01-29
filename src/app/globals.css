@@ -90,6 +90,18 @@ body {
   text-decoration: line-through;
 }
 
+.bracket-arrow {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 8px;
+  margin-right: 4px;
+}
+
+.bracket-arrow svg {
+  width: 16px;
+  height: 20px;
+}
+
 /* Nav links with bracket style */
 .nav-link {
   font-size: 13px;
