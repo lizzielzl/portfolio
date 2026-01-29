@@ -174,11 +174,11 @@ const projectDetails: Record<string, ProjectDetail> = {
         ),
         columns: 4,
         images: [
-          "01.png", "02.png", "03.png", "04.png",
-          "05.png", "06.png", "07.png", "08.png",
-          "09.png", "10.png", "11.png", "12.png",
-          "13.png", "14.png", "15.png", "16.png",
-          "17.png", "18.png", "19.png", "20.png",
+          "18.png", "16.png", "19.png", "14.png",
+          "15.png", "20.png", "21.png", "17.png",
+          "13.png", "30.png", "26.png", "27.png",
+          "31.png", "22.png", "23.png", "24.png",
+          "25.png", "28.png", "29.png", "32.png",
         ],
       },
       {
@@ -186,7 +186,7 @@ const projectDetails: Record<string, ProjectDetail> = {
         description:
           "I\u2019m building and maintaining the Stellar Design System for all of Voyage\u2019s products. When creating color variables, I designed two modes - dark and light - allowing users to switch between them based on their preference.",
         columns: 4,
-        images: ["21.png", "22.png", "23.png", "24.png"],
+        images: ["10.png", "11.png", "08.png", "09.png"],
       },
       {
         title: "Brand Assets Design",
@@ -194,9 +194,9 @@ const projectDetails: Record<string, ProjectDetail> = {
           "I designed Voyage\u2019s brand assets, including socials, one-pagers, graphics, and merch.",
         columns: 4,
         images: [
-          "25.png", "26.png", "27.png", "28.png",
-          "29.png", "30.png", "31.png", "32.png",
-          "33.png", "35.png", "36.png", "37.png",
+          "12.png", "36.png", "35.png", "37.png",
+          "04.png", "07.png", "05.png", "06.png",
+          "02.png", "01.png", "33.png", "03.png",
         ],
       },
     ],
