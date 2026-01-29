@@ -349,7 +349,7 @@ export default async function ProjectPage({ params }: PageProps) {
           <div key={i}>
             {/* Section text: 2-col grid (label | description or rich content) */}
             <div style={{ padding: "60px 0" }}>
-              <div className="project-section">
+              <div className="project-section" style={{ maxWidth: "70%", marginLeft: "15%" }}>
                 <h2
                   style={{
                     fontSize: 12,
