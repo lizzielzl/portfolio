@@ -71,7 +71,7 @@ export default function AboutPage() {
         <p style={{ fontSize: 14, lineHeight: 1.4, marginBottom: 12 }}>
           Stakeholders who have worked with me often refer to me as an &ldquo;intuitive designer.&rdquo;
         </p>
-        <p style={{ fontSize: 18, fontWeight: 600, fontStyle: "italic", marginBottom: 16 }}>
+        <p style={{ fontSize: 18, fontWeight: 500, fontStyle: "italic", marginBottom: 16 }}>
           &ldquo;Lizzie is good at figuring things out.&rdquo;
         </p>
         <p style={{ fontSize: 14, lineHeight: 1.4 }}>

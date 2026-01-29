@@ -24,7 +24,7 @@ export default function ContactPage() {
             href="mailto:lizzie@zililiu.com"
             style={{
               fontSize: 24,
-              fontWeight: 400,
+              fontWeight: 300,
               textDecoration: "underline",
               textUnderlineOffset: 4,
               color: "inherit",

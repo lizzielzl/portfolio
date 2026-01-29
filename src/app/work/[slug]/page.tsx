@@ -54,27 +54,27 @@ const projectDetails: Record<string, ProjectDetail> = {
         description: "",
         richContent: (
           <>
-            <h2 style={{ fontSize: 27, fontWeight: 400, marginBottom: 15, marginTop: 0 }}>
+            <h2 style={{ fontSize: 27, fontWeight: 300, marginBottom: 15, marginTop: 0 }}>
               Problem
             </h2>
-            <p style={{ fontSize: 14, fontWeight: 400, lineHeight: 1.3, letterSpacing: "-0.5px", marginBottom: 30 }}>
+            <p style={{ fontSize: 14, fontWeight: 300, lineHeight: 1.3, letterSpacing: "-0.5px", marginBottom: 30 }}>
               Everyone is waiting for AGI to understand their business. <strong>But it never will.</strong>
             </p>
-            <p style={{ fontSize: 14, fontWeight: 400, lineHeight: 1.3, letterSpacing: "-0.5px", marginBottom: 30 }}>
+            <p style={{ fontSize: 14, fontWeight: 300, lineHeight: 1.3, letterSpacing: "-0.5px", marginBottom: 30 }}>
               Because:
             </p>
-            <ul style={{ fontSize: 14, fontWeight: 400, lineHeight: 1.3, letterSpacing: "-0.5px", paddingLeft: 20, marginBottom: 30, listStyleType: "disc" }}>
+            <ul style={{ fontSize: 14, fontWeight: 300, lineHeight: 1.3, letterSpacing: "-0.5px", paddingLeft: 20, marginBottom: 30, listStyleType: "disc" }}>
               <li style={{ marginBottom: 15 }}>Decisions hide in meetings, Slack, email, and task tools.</li>
               <li style={{ marginBottom: 15 }}>Context is scattered across Notion, Drive, and docs.</li>
               <li style={{ marginBottom: 15 }}>OpenAI, Anthropic, and others change weekly—no safe single bet.</li>
             </ul>
-            <h2 style={{ fontSize: 27, fontWeight: 400, marginBottom: 15, marginTop: 0 }}>
+            <h2 style={{ fontSize: 27, fontWeight: 300, marginBottom: 15, marginTop: 0 }}>
               Solution
             </h2>
-            <p style={{ fontSize: 14, fontWeight: 400, lineHeight: 1.3, letterSpacing: "-0.5px", marginBottom: 30 }}>
+            <p style={{ fontSize: 14, fontWeight: 300, lineHeight: 1.3, letterSpacing: "-0.5px", marginBottom: 30 }}>
               Indigo solves problems <strong>from needle-in-haystack to strategic analysis.</strong>
             </p>
-            <p style={{ fontSize: 14, fontWeight: 400, lineHeight: 1.3, letterSpacing: "-0.5px", marginBottom: 30 }}>
+            <p style={{ fontSize: 14, fontWeight: 300, lineHeight: 1.3, letterSpacing: "-0.5px", marginBottom: 30 }}>
               Indigo connects your entire stack—meetings, Slack, email, tasks, and knowledge bases—then separates live decision streams (hot) from institutional memory (cold). We continuously distill and index insights in the cold corpus with citations, and a deep, model-agnostic research agent runs requests across both to answer, draft, and take action.
             </p>
             <Image
@@ -291,7 +291,7 @@ export default async function ProjectPage({ params }: PageProps) {
           marginBottom: 0,
         }}
       >
-        <h1 style={{ fontSize: 33, fontWeight: 400, lineHeight: 1.3, letterSpacing: "-2px", maxWidth: "70%" }}>
+        <h1 style={{ fontSize: 33, fontWeight: 300, lineHeight: 1.3, letterSpacing: "-2px", maxWidth: "70%" }}>
           {details.headline}
         </h1>
         <span className="headline-date" style={{ fontSize: 12, color: "var(--gray-mid)" }}>
@@ -352,7 +352,7 @@ export default async function ProjectPage({ params }: PageProps) {
                 <h2
                   style={{
                     fontSize: 12,
-                    fontWeight: 600,
+                    fontWeight: 500,
                     textTransform: "uppercase" as const,
                     lineHeight: 1.4,
                     marginBottom: 0,
@@ -363,7 +363,7 @@ export default async function ProjectPage({ params }: PageProps) {
                 {section.richContent ? (
                   <div>{section.richContent}</div>
                 ) : (
-                  <p style={{ fontSize: 14, fontWeight: 400, lineHeight: 1.3, letterSpacing: "-0.5px", marginBottom: 0 }}>
+                  <p style={{ fontSize: 14, fontWeight: 300, lineHeight: 1.3, letterSpacing: "-0.5px", marginBottom: 0 }}>
                     {section.description}
                   </p>
                 )}
@@ -396,11 +396,46 @@ export default async function ProjectPage({ params }: PageProps) {
         );
       })}
 
-      {/* Back to work */}
-      <div style={{ marginTop: 64, paddingTop: 32, borderTop: "1px solid #e0e0e0" }}>
-        <Link href="/work" style={{ fontSize: 12, textTransform: "uppercase" }}>
-          ← Back to all work
-        </Link>
+      {/* More work */}
+      <div style={{ padding: "60px 0" }}>
+        <div className="page-title" style={{ marginBottom: 30 }}>More work</div>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr",
+            gap: "80px 30px",
+          }}
+        >
+          {(() => {
+            const featured = projects.filter((p) => p.featured && p.hasDetail);
+            const currentIndex = featured.findIndex((p) => p.slug === slug);
+            const next: typeof featured = [];
+            for (let i = 1; next.length < 2 && i < featured.length; i++) {
+              next.push(featured[(currentIndex + i) % featured.length]);
+            }
+            return next;
+          })().map((p) => (
+              <Link
+                key={p.slug}
+                href={`/work/${p.slug}`}
+                className="project-card"
+              >
+                <div className="project-card-image">
+                  <Image
+                    src={p.thumbnail}
+                    alt={p.title}
+                    width={400}
+                    height={300}
+                    style={{ maxWidth: "85%", maxHeight: "85%", objectFit: "contain" }}
+                    unoptimized={p.thumbnail.endsWith(".gif")}
+                  />
+                </div>
+                <div className="project-card-title">
+                  {p.title} / {p.type}
+                </div>
+              </Link>
+            ))}
+        </div>
       </div>
     </div>
   );
