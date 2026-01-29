@@ -3,6 +3,7 @@ import Link from "next/link";
 import fs from "fs";
 import path from "path";
 import { projects } from "@/lib/projects";
+import ImageGrid from "@/components/ImageGrid";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -343,8 +344,6 @@ export default async function ProjectPage({ params }: PageProps) {
       {sections.map((section, i) => {
         const cols = section.columns || 4;
         const fullWidth = section.fullWidthImages || [];
-        const fullWidthImgs = section.images.filter((_, j) => fullWidth.includes(j));
-        const gridImgs = section.images.filter((_, j) => !fullWidth.includes(j));
         return (
           <div key={i}>
             {/* Section text: 2-col grid (label | description or rich content) */}
@@ -371,59 +370,15 @@ export default async function ProjectPage({ params }: PageProps) {
               </div>
             </div>
 
-            {/* Images: full-width, outside the grid */}
+            {/* Images with lightbox */}
             {section.images.length > 0 && (
-              <div>
-                {/* Full-width images */}
-                {fullWidthImgs.map((img, j) => (
-                  <div
-                    key={`fw-${j}`}
-                    style={{
-                      width: "100%",
-                      overflow: "hidden",
-                      marginBottom: 10,
-                    }}
-                  >
-                    <Image
-                      src={`/images/${slug}/${img}`}
-                      alt={`${project.title} - ${section.title}`}
-                      width={1440}
-                      height={900}
-                      style={{ width: "100%", height: "auto", display: "block" }}
-                      unoptimized={img.endsWith(".gif")}
-                    />
-                  </div>
-                ))}
-                {/* Grid images */}
-                {gridImgs.length > 0 && (
-                  <div
-                    className="image-grid"
-                    style={{
-                      display: "grid",
-                      gridTemplateColumns: `repeat(${cols}, 1fr)`,
-                      gap: 10,
-                    }}
-                  >
-                    {gridImgs.map((img, j) => (
-                      <div
-                        key={j}
-                        style={{
-                          overflow: "hidden",
-                        }}
-                      >
-                        <Image
-                          src={`/images/${slug}/${img}`}
-                          alt={`${project.title} - ${section.title} ${j + 1}`}
-                          width={720}
-                          height={450}
-                          style={{ width: "100%", height: "auto", display: "block" }}
-                          unoptimized={img.endsWith(".gif")}
-                        />
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
+              <ImageGrid
+                slug={slug}
+                images={section.images}
+                columns={cols}
+                alt={`${project.title} - ${section.title}`}
+                fullWidthImages={fullWidth}
+              />
             )}
 
             {/* Full-width section divider */}
