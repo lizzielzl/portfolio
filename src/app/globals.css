@@ -92,14 +92,20 @@ body {
 
 .bracket-arrow {
   display: inline-flex;
-  align-items: center;
+  align-self: flex-end;
   margin-left: 8px;
   margin-right: 4px;
+  transition: transform 0.2s;
 }
 
 .bracket-arrow svg {
   width: 16px;
   height: 20px;
+  display: block;
+}
+
+.bracket-btn:hover .bracket-arrow {
+  transform: translateX(2px);
 }
 
 /* Nav links with bracket style */
