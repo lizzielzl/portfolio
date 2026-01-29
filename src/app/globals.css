@@ -190,6 +190,11 @@ body {
   max-width: 85%;
   max-height: 85%;
   object-fit: contain;
+  transition: transform 0.3s;
+}
+
+.project-card:hover .project-card-image img {
+  transform: scale(1.1);
 }
 
 .project-card-title {
@@ -220,6 +225,10 @@ body {
 
 .project-card-static:hover .project-card-title {
   font-weight: 400;
+}
+
+.project-card-static:hover .project-card-image img {
+  transform: none;
 }
 
 /* Category filter */
@@ -269,20 +278,24 @@ body {
 .timeline-item {
   display: flex;
   justify-content: space-between;
-  align-items: baseline;
-  padding: 8px 0;
+  align-items: center;
+  padding: 0;
+  margin: 0;
   font-size: 12px;
   font-weight: 400;
   text-transform: uppercase;
-  line-height: 1.3;
+  line-height: 1.4;
+  transition: background 0.2s, color 0.2s;
+  cursor: default;
 }
 
-.timeline-item.current {
-  font-weight: 600;
+.timeline-item:hover {
+  background: var(--foreground);
+  color: var(--background);
 }
 
 .timeline-date {
-  color: var(--foreground);
+  color: inherit;
   white-space: nowrap;
 }
 

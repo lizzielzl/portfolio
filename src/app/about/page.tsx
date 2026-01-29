@@ -1,15 +1,15 @@
 import Image from "next/image";
 
 const workExperience = [
-  { title: "Lead Designer @ Indigo", date: "6/2024 - Present", current: true },
-  { title: "Lead Designer @ Voyage", date: "8/2024 - Present", current: true },
-  { title: "UX Designer @ ShopSwap", date: "2/2023 - 6/2024", current: true },
-  { title: "Freelance UX Designer", date: "9/2022 - 2/2023", current: false },
-  { title: "UX Intern @ iQIYI", date: "10/2020 - 3/2021", current: true },
-  { title: "Social Media Marketing Specialist @ MRG", date: "5/2022 - 12/2022", current: false },
-  { title: "Social Media Content Creator", date: "1/2021 - Present", current: true },
-  { title: "GQ Branding & Marketing Intern @ Conde Nast", date: "7/2019 - 1/2020", current: false },
-  { title: "Marketing & PR Intern @ Weber Shandwick", date: "1/2019 - 2/2019", current: false },
+  { title: "Lead Designer @ Indigo", date: "6/2024 - Present" },
+  { title: "Lead Designer @ Voyage", date: "8/2024 - Present" },
+  { title: "UX Designer @ ShopSwap", date: "2/2023 - 6/2024" },
+  { title: "Freelance UX Designer", date: "9/2022 - 2/2023" },
+  { title: "UX Intern @ iQIYI", date: "10/2020 - 3/2021" },
+  { title: "Social Media Marketing Specialist @ MRG", date: "5/2022 - 12/2022" },
+  { title: "Social Media Content Creator", date: "1/2021 - Present" },
+  { title: "GQ Branding & Marketing Intern @ Conde Nast", date: "7/2019 - 1/2020" },
+  { title: "Marketing & PR Intern @ Weber Shandwick", date: "1/2019 - 2/2019" },
 ];
 
 const education = [
@@ -103,30 +103,50 @@ export default function AboutPage() {
       </div>
 
       {/* Work Experience */}
-      <div style={{ marginTop: 48 }}>
-        <div className="page-title">Work</div>
-        <div style={{ maxWidth: 800, marginLeft: "auto" }}>
-          {workExperience.map((item, i) => (
-            <div key={i} className={`timeline-item ${item.current ? "current" : ""}`}>
-              <span>{item.title}</span>
-              <span className="timeline-date">{item.date}</span>
-            </div>
-          ))}
+      <div style={{ padding: "60px 0" }}>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr",
+            gap: 0,
+          }}
+        >
+          <div className="page-title" style={{ marginBottom: 0 }}>
+            Work
+          </div>
+          <div>
+            {workExperience.map((item, i) => (
+              <div key={i} className="timeline-item">
+                <span>{item.title}</span>
+                <span className="timeline-date">{item.date}</span>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
       {/* Education */}
-      <div style={{ marginTop: 48 }}>
-        <div style={{ display: "flex", justifyContent: "flex-end" }}>
-          <div className="page-title">Education</div>
-        </div>
-        <div>
-          {education.map((item, i) => (
-            <div key={i} className="timeline-item">
-              <span>{item.title}</span>
-              <span className="timeline-date">{item.date}</span>
-            </div>
-          ))}
+      <div style={{ padding: "60px 0" }}>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "2fr 1fr",
+            gap: 0,
+          }}
+        >
+          <div style={{ gridColumn: "1 / -1", textAlign: "right" }}>
+            <span className="page-title" style={{ marginBottom: 0 }}>
+              Education
+            </span>
+          </div>
+          <div>
+            {education.map((item, i) => (
+              <div key={i} className="timeline-item">
+                <span>{item.title}</span>
+                <span className="timeline-date">{item.date}</span>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>
