@@ -11,6 +11,7 @@ interface PageProps {
 interface ProjectSection {
   title: string;
   description: string;
+  richContent?: React.ReactNode; // rich text content (replaces description when present)
   images: string[]; // image filenames relative to /images/{slug}/
   columns?: number; // grid columns for image gallery (default 4)
   fullWidthImages?: number[]; // indices of images that should be full-width (1 col)
@@ -48,14 +49,50 @@ const projectDetails: Record<string, ProjectDetail> = {
     tools: ["Figma", "After Effects", "Webflow"],
     sections: [
       {
+        title: "Context",
+        description: "",
+        richContent: (
+          <>
+            <h2 style={{ fontSize: 27, fontWeight: 400, marginBottom: 15, marginTop: 0 }}>
+              Problem
+            </h2>
+            <p style={{ fontSize: 14, fontWeight: 400, lineHeight: 1.3, letterSpacing: "-0.5px", marginBottom: 30 }}>
+              Everyone is waiting for AGI to understand their business. But it never will.
+            </p>
+            <p style={{ fontSize: 14, fontWeight: 400, lineHeight: 1.3, letterSpacing: "-0.5px", marginBottom: 30 }}>
+              Because:
+            </p>
+            <ul style={{ fontSize: 14, fontWeight: 400, lineHeight: 1.3, letterSpacing: "-0.5px", paddingLeft: 20, marginBottom: 30 }}>
+              <li style={{ marginBottom: 15 }}>Decisions hide in meetings, Slack, email, and task tools.</li>
+              <li style={{ marginBottom: 15 }}>Context is scattered across Notion, Drive, and docs.</li>
+              <li style={{ marginBottom: 15 }}>OpenAI, Anthropic, and others change weekly—no safe single bet.</li>
+            </ul>
+            <h2 style={{ fontSize: 27, fontWeight: 400, marginBottom: 15, marginTop: 0 }}>
+              Solution
+            </h2>
+            <p style={{ fontSize: 14, fontWeight: 400, lineHeight: 1.3, letterSpacing: "-0.5px", marginBottom: 30 }}>
+              Indigo solves problems <strong>from needle-in-haystack to strategic analysis.</strong>
+            </p>
+            <p style={{ fontSize: 14, fontWeight: 400, lineHeight: 1.3, letterSpacing: "-0.5px", marginBottom: 30 }}>
+              Indigo connects your entire stack—meetings, Slack, email, tasks, and knowledge bases—then separates live decision streams (hot) from institutional memory (cold). We continuously distill and index insights in the cold corpus with citations, and a deep, model-agnostic research agent runs requests across both to answer, draft, and take action.
+            </p>
+            <Image
+              src="/images/indigo/02-structure.png"
+              alt="Indigo architecture diagram"
+              width={1200}
+              height={472}
+              style={{ width: "100%", height: "auto", display: "block" }}
+            />
+          </>
+        ),
+        images: [],
+      },
+      {
         title: "Desktop App Design",
         description:
           "Indigo meets users where they work, not in another browser tab. One system for meetings, assistants, and commands on macOS and Windows.",
         columns: 4,
-        fullWidthImages: [0, 1],
         images: [
-          "01-hero.gif",
-          "02-structure.png",
           "03-app-1.jpg",
           "04-app-2.jpg",
           "05-app-3.jpg",
@@ -215,12 +252,14 @@ export default async function ProjectPage({ params }: PageProps) {
   // For projects where section images aren't manually mapped,
   // distribute all images across sections evenly
   const sections = details.sections.map((section, i) => {
-    if (section.images.length > 0) return section;
-    // Auto-distribute: skip first image (hero), split rest across sections
+    if (section.images.length > 0 || section.richContent) return section;
+    // Auto-distribute: skip first image (hero), split rest across image sections
     const contentImages = allImages.slice(1); // skip hero GIF
-    const sectionCount = details.sections.length;
+    const imageSections = details.sections.filter((s) => s.images.length === 0 && !s.richContent);
+    const sectionIndex = imageSections.indexOf(section);
+    const sectionCount = imageSections.length;
     const perSection = Math.ceil(contentImages.length / sectionCount);
-    const start = i * perSection;
+    const start = sectionIndex * perSection;
     const sectionImages = contentImages.slice(start, start + perSection);
     return { ...section, images: sectionImages, columns: section.columns || 4 };
   });
@@ -286,6 +325,20 @@ export default async function ProjectPage({ params }: PageProps) {
         </div>
       </div>
 
+      {/* Hero image (standalone, before sections) */}
+      {heroImage && (
+        <div style={{ paddingBottom: 60 }}>
+          <Image
+            src={`/images/${slug}/${heroImage}`}
+            alt={project.title}
+            width={1440}
+            height={900}
+            style={{ width: "100%", height: "auto", display: "block" }}
+            unoptimized={heroImage.endsWith(".gif")}
+          />
+        </div>
+      )}
+
       {/* Sections with images */}
       {sections.map((section, i) => {
         const cols = section.columns || 4;
@@ -294,7 +347,7 @@ export default async function ProjectPage({ params }: PageProps) {
         const gridImgs = section.images.filter((_, j) => !fullWidth.includes(j));
         return (
           <div key={i}>
-            {/* Section text: 2-col grid (label | description) */}
+            {/* Section text: 2-col grid (label | description or rich content) */}
             <div style={{ padding: "60px 0" }}>
               <div className="project-section">
                 <h2
@@ -308,9 +361,13 @@ export default async function ProjectPage({ params }: PageProps) {
                 >
                   {section.title}
                 </h2>
-                <p style={{ fontSize: 14, fontWeight: 400, lineHeight: 1.3, letterSpacing: "-0.5px", marginBottom: 0 }}>
-                  {section.description}
-                </p>
+                {section.richContent ? (
+                  <div>{section.richContent}</div>
+                ) : (
+                  <p style={{ fontSize: 14, fontWeight: 400, lineHeight: 1.3, letterSpacing: "-0.5px", marginBottom: 0 }}>
+                    {section.description}
+                  </p>
+                )}
               </div>
             </div>
 
@@ -383,20 +440,6 @@ export default async function ProjectPage({ params }: PageProps) {
           </div>
         );
       })}
-
-      {/* Show hero as first image if no sections have images */}
-      {heroImage && sections.every((s) => s.images.length === 0) && (
-        <div style={{ marginTop: 32 }}>
-          <Image
-            src={`/images/${slug}/${heroImage}`}
-            alt={project.title}
-            width={1440}
-            height={900}
-            style={{ width: "100%", height: "auto", display: "block" }}
-            unoptimized={heroImage.endsWith(".gif")}
-          />
-        </div>
-      )}
 
       {/* Back to work */}
       <div style={{ marginTop: 64, paddingTop: 32, borderTop: "1px solid #e0e0e0" }}>
