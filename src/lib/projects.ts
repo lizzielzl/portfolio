@@ -65,26 +65,6 @@ export const projects: Project[] = [
     hasDetail: true,
   },
 
-  // Desktop Apps
-  {
-    slug: "messaging-app",
-    title: "Messaging App",
-    type: "Desktop",
-    categories: ["desktop-app"],
-    thumbnail: "/images/messaging-app-thumb.jpg",
-    featured: false,
-    hasDetail: false,
-  },
-  {
-    slug: "music-player",
-    title: "Music Player",
-    type: "Desktop",
-    categories: ["desktop-app"],
-    thumbnail: "/images/music-player-thumb.jpg",
-    featured: false,
-    hasDetail: false,
-  },
-
   // Mobile Apps
   {
     slug: "ecommerce-app",
@@ -137,6 +117,26 @@ export const projects: Project[] = [
     type: "Mobile + Website",
     categories: ["mobile-app", "website"],
     thumbnail: "/images/dias-boba-thumb.jpg",
+    featured: false,
+    hasDetail: false,
+  },
+
+  // Desktop Apps
+  {
+    slug: "messaging-app",
+    title: "Messaging App",
+    type: "Desktop",
+    categories: ["desktop-app"],
+    thumbnail: "/images/messaging-app-thumb.jpg",
+    featured: false,
+    hasDetail: false,
+  },
+  {
+    slug: "music-player",
+    title: "Music Player",
+    type: "Desktop",
+    categories: ["desktop-app"],
+    thumbnail: "/images/music-player-thumb.jpg",
     featured: false,
     hasDetail: false,
   },
