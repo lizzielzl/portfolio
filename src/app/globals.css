@@ -168,6 +168,18 @@ body {
   line-height: 1.4;
 }
 
+.project-card-title.no-underline {
+  text-decoration: none;
+}
+
+.project-card-static {
+  cursor: default;
+}
+
+.project-card-static:hover {
+  opacity: 1;
+}
+
 /* Category filter */
 .category-filter {
   display: flex;

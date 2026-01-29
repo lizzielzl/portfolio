@@ -11,7 +11,7 @@ export default function WorkPage() {
   const filtered =
     activeCategory === "featured"
       ? projects.filter((p) => p.featured)
-      : projects.filter((p) => p.category === activeCategory);
+      : projects.filter((p) => p.categories.includes(activeCategory));
 
   return (
     <div style={{ padding: "32px 40px" }}>
@@ -47,27 +47,46 @@ export default function WorkPage() {
           marginTop: "24px",
         }}
       >
-        {filtered.map((project) => (
-          <Link
-            key={project.slug}
-            href={`/work/${project.slug}`}
-            className="project-card"
-          >
-            <div className="project-card-image">
-              <Image
-                src={project.thumbnail}
-                alt={project.title}
-                width={400}
-                height={300}
-                style={{ maxWidth: "85%", maxHeight: "85%", objectFit: "contain" }}
-                unoptimized
-              />
+        {filtered.map((project) => {
+          const cardContent = (
+            <>
+              <div className="project-card-image">
+                <Image
+                  src={project.thumbnail}
+                  alt={project.title}
+                  width={400}
+                  height={300}
+                  style={{ maxWidth: "85%", maxHeight: "85%", objectFit: "contain" }}
+                  unoptimized={project.thumbnail.endsWith(".gif")}
+                />
+              </div>
+              <div className={`project-card-title${!project.hasDetail ? " no-underline" : ""}`}>
+                {project.title} / {project.type}
+              </div>
+            </>
+          );
+
+          if (project.hasDetail) {
+            return (
+              <Link
+                key={project.slug}
+                href={`/work/${project.slug}`}
+                className="project-card"
+              >
+                {cardContent}
+              </Link>
+            );
+          }
+
+          return (
+            <div
+              key={project.slug}
+              className="project-card project-card-static"
+            >
+              {cardContent}
             </div>
-            <div className="project-card-title">
-              {project.title} / {project.type}
-            </div>
-          </Link>
-        ))}
+          );
+        })}
       </div>
     </div>
   );
