@@ -110,8 +110,17 @@ const projectDetails: Record<string, ProjectDetail> = {
       },
       {
         title: "Design System",
-        description:
-          "I created the AI OS Design System for Indigo, covering text, color, and effect styles; reusable UI components; and scalable variables for color, spacing, and typography. The system supports seamless switching between light and dark modes, as well as theming with different primary colors and typefaces.",
+        description: "",
+        richContent: (
+          <>
+            <p style={{ fontSize: 14, fontWeight: 300, lineHeight: 1.3, letterSpacing: "-0.5px", marginBottom: 20, marginTop: 0 }}>
+              I created the <strong>AI OS Design System</strong> for Indigo, covering text, color, and effect styles; reusable UI components; and scalable variables for color, spacing, and typography. The system supports seamless switching between light and dark modes, as well as theming with different primary colors and typefaces.
+            </p>
+            <p style={{ fontSize: 14, fontWeight: 300, lineHeight: 1.3, letterSpacing: "-0.5px", marginBottom: 0, marginTop: 0 }}>
+              Because most AI productivity products share similar interaction patterns, the AI OS Design System can be white-labeled or licensed by other AI startups. It{"\u2019"}s already trusted by teams such as <strong>GoAbacus</strong> to power their product UX.
+            </p>
+          </>
+        ),
         columns: 2,
         images: ["15-ds-1.jpg", "16-ds-2.jpg"],
       },
@@ -363,9 +372,13 @@ export default async function ProjectPage({ params }: PageProps) {
                 {section.richContent ? (
                   <div>{section.richContent}</div>
                 ) : (
-                  <p style={{ fontSize: 14, fontWeight: 300, lineHeight: 1.3, letterSpacing: "-0.5px", marginBottom: 0 }}>
-                    {section.description}
-                  </p>
+                  <div>
+                    {section.description.split("\n\n").map((para, pi) => (
+                      <p key={pi} style={{ fontSize: 14, fontWeight: 300, lineHeight: 1.3, letterSpacing: "-0.5px", marginBottom: 0, marginTop: pi > 0 ? 20 : 0 }}>
+                        {para}
+                      </p>
+                    ))}
+                  </div>
                 )}
               </div>
             </div>
