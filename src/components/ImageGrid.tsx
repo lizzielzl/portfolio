@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useState } from "react";
 import Lightbox from "./Lightbox";
-import ScrollRevealImage from "./animations/ScrollRevealImage";
+import FadeUp from "./animations/FadeUp";
 
 interface ImageGridProps {
   slug: string;
@@ -34,7 +34,7 @@ export default function ImageGrid({
       {fullWidthImgs.map((img, j) => {
         const globalIndex = images.indexOf(img);
         return (
-          <ScrollRevealImage key={`fw-${j}`} delay={j * 0.1}>
+          <FadeUp key={`fw-${j}`} whileInView delay={j * 0.1} duration={0.5}>
             <div
               className="image-grid-clickable"
               style={{
@@ -54,7 +54,7 @@ export default function ImageGrid({
                 unoptimized={img.endsWith(".gif")}
               />
             </div>
-          </ScrollRevealImage>
+          </FadeUp>
         );
       })}
 
@@ -71,7 +71,7 @@ export default function ImageGrid({
           {gridImgs.map((img, j) => {
             const globalIndex = images.indexOf(img);
             return (
-              <ScrollRevealImage key={j} delay={(j % columns) * 0.08}>
+              <FadeUp key={j} whileInView delay={(j % columns) * 0.08} duration={0.5}>
                 <div
                   className="image-grid-clickable"
                   style={{ overflow: "hidden", cursor: "pointer" }}
@@ -86,7 +86,7 @@ export default function ImageGrid({
                     unoptimized={img.endsWith(".gif")}
                   />
                 </div>
-              </ScrollRevealImage>
+              </FadeUp>
             );
           })}
         </div>
