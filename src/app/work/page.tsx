@@ -4,8 +4,10 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
 import { projects, categories } from "@/lib/projects";
+import FadeUp from "@/components/animations/FadeUp";
+import SplitText from "@/components/animations/SplitText";
 
-function ProjectCard({ project }: { project: (typeof projects)[number] }) {
+function ProjectCard({ project, index }: { project: (typeof projects)[number]; index: number }) {
   const cardContent = (
     <>
       <div className="project-card-image">
@@ -24,21 +26,28 @@ function ProjectCard({ project }: { project: (typeof projects)[number] }) {
     </>
   );
 
-  if (project.hasDetail) {
-    return (
-      <Link
-        href={`/work/${project.slug}`}
-        className="project-card"
-      >
-        {cardContent}
-      </Link>
-    );
-  }
-
-  return (
+  const card = project.hasDetail ? (
+    <Link
+      href={`/work/${project.slug}`}
+      className="project-card"
+    >
+      {cardContent}
+    </Link>
+  ) : (
     <div className="project-card project-card-static">
       {cardContent}
     </div>
+  );
+
+  return (
+    <FadeUp
+      whileInView
+      delay={(index % 3) * 0.1}
+      duration={0.5}
+      distance={25}
+    >
+      {card}
+    </FadeUp>
   );
 }
 
@@ -56,58 +65,66 @@ export default function WorkPage() {
         : projects.filter((p) => p.categories.includes(activeCategory));
 
   return (
-    <div style={{ padding: "32px 40px" }}>
-      <div className="page-title">Work</div>
+    <div className="page-padding-listing">
+      <div className="page-title">
+        <SplitText text="Work" />
+      </div>
 
       {/* Category filters */}
-      <div className="category-filter">
-        {categories.map((cat) => (
-          <button
-            key={cat.id}
-            className={`category-tab bracket-btn ${activeCategory === cat.id ? "active" : ""}`}
-            onClick={() => setActiveCategory(cat.id)}
-          >
-            <span className="bracket bracket-left">[</span>
-            <span className="bracket-label">{cat.label}&nbsp;&nbsp;{cat.count}</span>
-            <span className="bracket bracket-right">]</span>
-          </button>
-        ))}
-      </div>
+      <FadeUp delay={0.2} duration={0.5}>
+        <div className="category-filter">
+          {categories.map((cat) => (
+            <button
+              key={cat.id}
+              className={`category-tab bracket-btn ${activeCategory === cat.id ? "active" : ""}`}
+              onClick={() => setActiveCategory(cat.id)}
+            >
+              <span className="bracket bracket-left">[</span>
+              <span className="bracket-label">{cat.label}&nbsp;&nbsp;{cat.count}</span>
+              <span className="bracket bracket-right">]</span>
+            </button>
+          ))}
+        </div>
+      </FadeUp>
 
       {/* Breadcrumb */}
-      <div className="breadcrumb">
-        <Link href="/">Home</Link>
-        <span>&gt;</span>
-        <strong style={{ color: "var(--foreground)" }}>Work</strong>
-      </div>
+      <FadeUp delay={0.3} duration={0.5}>
+        <div className="breadcrumb">
+          <Link href="/">Home</Link>
+          <span>&gt;</span>
+          <strong style={{ color: "var(--foreground)" }}>Work</strong>
+        </div>
+      </FadeUp>
 
       {filtered === null ? (
         <>
-          {/* All projects: featured in 3-col, rest in 4-col */}
+          {/* All projects: featured in 3-col, rest in 3-col */}
           <div
             className="project-grid"
             style={{
               display: "grid",
               gridTemplateColumns: "repeat(3, 1fr)",
-              gap: "32px",
+              columnGap: "32px",
+              rowGap: "48px",
               marginTop: "24px",
             }}
           >
-            {featuredProjects.map((project) => (
-              <ProjectCard key={project.slug} project={project} />
+            {featuredProjects.map((project, i) => (
+              <ProjectCard key={project.slug} project={project} index={i} />
             ))}
           </div>
           <div
             className="project-grid"
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(4, 1fr)",
-              gap: "24px",
+              gridTemplateColumns: "repeat(3, 1fr)",
+              columnGap: "32px",
+              rowGap: "48px",
               marginTop: "32px",
             }}
           >
-            {nonFeaturedProjects.map((project) => (
-              <ProjectCard key={project.slug} project={project} />
+            {nonFeaturedProjects.map((project, i) => (
+              <ProjectCard key={project.slug} project={project} index={i} />
             ))}
           </div>
         </>
@@ -117,12 +134,13 @@ export default function WorkPage() {
           style={{
             display: "grid",
             gridTemplateColumns: "repeat(3, 1fr)",
-            gap: "32px",
+            columnGap: "32px",
+            rowGap: "48px",
             marginTop: "24px",
           }}
         >
-          {filtered.map((project) => (
-            <ProjectCard key={project.slug} project={project} />
+          {filtered.map((project, i) => (
+            <ProjectCard key={project.slug} project={project} index={i} />
           ))}
         </div>
       )}

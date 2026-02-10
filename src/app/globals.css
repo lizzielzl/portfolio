@@ -637,36 +637,54 @@ strong, b {
 .hamburger-btn {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
+  align-items: flex-end;
   gap: 5px;
   background: none;
   border: none;
   cursor: pointer;
-  padding: 8px;
+  padding: 0;
+  margin-top: 6px;
+  margin-right: 3%;
 }
 
 .hamburger-line {
   display: block;
-  width: 24px;
   height: 2px;
   background: var(--foreground);
-  transition: transform 0.3s ease, opacity 0.3s ease;
+  transition: width 0.3s ease, transform 0.3s ease 0.3s, opacity 0.2s ease;
 }
 
-/* Hamburger to X transform */
+/* All lines same width, right-aligned */
+.hamburger-line:nth-child(1) {
+  width: 24px;
+}
+
+.hamburger-line:nth-child(2) {
+  width: 24px;
+}
+
+.hamburger-line:nth-child(3) {
+  width: 24px;
+}
+
+/* Hamburger to X transform - shrink first, then rotate */
 .hamburger-btn.active .hamburger-line:nth-child(1) {
-  transform: translateY(7px) rotate(45deg);
+  width: 20px;
+  transform: translateY(7px) rotate(-45deg);
 }
 
 .hamburger-btn.active .hamburger-line:nth-child(2) {
+  width: 0px;
   opacity: 0;
 }
 
 .hamburger-btn.active .hamburger-line:nth-child(3) {
-  transform: translateY(-7px) rotate(-45deg);
+  width: 20px;
+  transform: translateY(-7px) rotate(45deg);
 }
 
-/* Mobile menu overlay */
+/* Mobile menu overlay - slide down from top */
 .mobile-menu-overlay {
   display: flex;
   position: fixed;
@@ -680,15 +698,33 @@ strong, b {
   flex-direction: column;
   justify-content: space-between;
   overflow-y: auto;
-  clip-path: circle(0% at calc(100% - 40px) 40px);
+  transform: translateY(-100%);
   visibility: hidden;
-  transition: clip-path 0.4s ease-out, visibility 0s linear 0.4s;
+  transition: transform 0.5s ease-out, visibility 0s linear 0.5s;
 }
 
 .mobile-menu-overlay.open {
-  clip-path: circle(150% at calc(100% - 40px) 40px);
+  transform: translateY(0);
   visibility: visible;
-  transition: clip-path 0.4s ease-out, visibility 0s linear 0s;
+  transition: transform 0.5s ease-out, visibility 0s linear 0s;
+}
+
+/* Menu content fades in after background slides down */
+.mobile-menu-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  opacity: 0;
+  transform: translateY(-30px);
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+  transition-delay: 0s;
+}
+
+.mobile-menu-overlay.open .mobile-menu-content {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.4s;
 }
 
 .close-btn {
@@ -700,13 +736,6 @@ strong, b {
   cursor: pointer;
   padding: 8px;
   color: var(--foreground);
-}
-
-.mobile-menu-content {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 100%;
 }
 
 /* Responsive — mobile: hide sidebar, show hamburger */

@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useState } from "react";
 import Lightbox from "./Lightbox";
+import ScrollRevealImage from "./animations/ScrollRevealImage";
 
 interface ImageGridProps {
   slug: string;
@@ -29,36 +30,31 @@ export default function ImageGrid({
 
   return (
     <div>
-      {/* Click to expand hint */}
-      <div className="expand-hint">
-        <div style={{ width: 55, height: 1, background: "#e6e6e6", margin: "0 auto 8px" }} />
-        Click to expand images
-      </div>
-
       {/* Full-width images */}
       {fullWidthImgs.map((img, j) => {
         const globalIndex = images.indexOf(img);
         return (
-          <div
-            key={`fw-${j}`}
-            className="image-grid-clickable"
-            style={{
-              width: "100%",
-              overflow: "hidden",
-              marginBottom: 10,
-              cursor: "pointer",
-            }}
-            onClick={() => setLightboxIndex(globalIndex)}
-          >
-            <Image
-              src={`/images/${slug}/${img}`}
-              alt={`${alt}`}
-              width={1440}
-              height={900}
-              style={{ width: "100%", height: "auto", display: "block" }}
-              unoptimized={img.endsWith(".gif")}
-            />
-          </div>
+          <ScrollRevealImage key={`fw-${j}`} delay={j * 0.1}>
+            <div
+              className="image-grid-clickable"
+              style={{
+                width: "100%",
+                overflow: "hidden",
+                marginBottom: 10,
+                cursor: "pointer",
+              }}
+              onClick={() => setLightboxIndex(globalIndex)}
+            >
+              <Image
+                src={`/images/${slug}/${img}`}
+                alt={`${alt}`}
+                width={1440}
+                height={900}
+                style={{ width: "100%", height: "auto", display: "block" }}
+                unoptimized={img.endsWith(".gif")}
+              />
+            </div>
+          </ScrollRevealImage>
         );
       })}
 
@@ -75,21 +71,22 @@ export default function ImageGrid({
           {gridImgs.map((img, j) => {
             const globalIndex = images.indexOf(img);
             return (
-              <div
-                key={j}
-                className="image-grid-clickable"
-                style={{ overflow: "hidden", cursor: "pointer" }}
-                onClick={() => setLightboxIndex(globalIndex)}
-              >
-                <Image
-                  src={`/images/${slug}/${img}`}
-                  alt={`${alt} ${j + 1}`}
-                  width={720}
-                  height={450}
-                  style={{ width: "100%", height: "auto", display: "block" }}
-                  unoptimized={img.endsWith(".gif")}
-                />
-              </div>
+              <ScrollRevealImage key={j} delay={(j % columns) * 0.08}>
+                <div
+                  className="image-grid-clickable"
+                  style={{ overflow: "hidden", cursor: "pointer" }}
+                  onClick={() => setLightboxIndex(globalIndex)}
+                >
+                  <Image
+                    src={`/images/${slug}/${img}`}
+                    alt={`${alt} ${j + 1}`}
+                    width={720}
+                    height={450}
+                    style={{ width: "100%", height: "auto", display: "block" }}
+                    unoptimized={img.endsWith(".gif")}
+                  />
+                </div>
+              </ScrollRevealImage>
             );
           })}
         </div>

@@ -1,6 +1,13 @@
+"use client";
+
+import { motion } from "framer-motion";
+
 export default function Home() {
   return (
-    <div
+    <motion.div
+      initial={{ clipPath: "inset(5%)", opacity: 0, scale: 1.05 }}
+      animate={{ clipPath: "inset(0%)", opacity: 1, scale: 1 }}
+      transition={{ duration: 1.2, ease: "easeOut" }}
       style={{
         position: "fixed",
         top: 0,

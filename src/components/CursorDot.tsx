@@ -41,6 +41,7 @@ export default function CursorDot() {
   return (
     <div
       ref={dotRef}
+      className="cursor-dot"
       style={{
         position: "fixed",
         top: 0,
