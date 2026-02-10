@@ -5,8 +5,8 @@ import { motion } from "framer-motion";
 export default function Home() {
   return (
     <motion.div
-      initial={{ clipPath: "inset(5%)", opacity: 0, scale: 1.05 }}
-      animate={{ clipPath: "inset(0%)", opacity: 1, scale: 1 }}
+      initial={{ filter: "blur(20px)", scale: 1.1 }}
+      animate={{ filter: "blur(0px)", scale: 1 }}
       transition={{ duration: 1.2, ease: "easeOut" }}
       style={{
         position: "fixed",
