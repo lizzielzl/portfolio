@@ -18,7 +18,7 @@ export default function ScrollRevealImage({
     <motion.div
       initial={{ clipPath: "inset(0 0 100% 0)", scale: 1.02 }}
       whileInView={{ clipPath: "inset(0 0 0% 0)", scale: 1 }}
-      viewport={{ once: true, amount: 0.3 }}
+      viewport={{ once: true, amount: 0 }}
       transition={{ duration, delay, ease: "easeOut" }}
     >
       {children}
