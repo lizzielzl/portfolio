@@ -369,6 +369,10 @@ strong, b {
   padding: 100px 0;
 }
 
+.project-section-text > div h2 ~ h2 {
+  margin-top: 60px !important;
+}
+
 .about-image-wrapper {
   overflow: hidden;
   width: 100%;
@@ -588,6 +592,10 @@ strong, b {
     font-size: 28px !important;
   }
 
+  .project-section-text > div h2 ~ h2 {
+    margin-top: 40px !important;
+  }
+
   .image-grid {
     grid-template-columns: repeat(2, 1fr) !important;
   }
@@ -602,6 +610,18 @@ strong, b {
 
   .about-edu-rows {
     grid-column: 1 / -1;
+  }
+
+  .timeline-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .timeline-date {
+    flex-shrink: 0;
+    text-align: right;
   }
 
   .lightbox-image-area {
@@ -773,6 +793,10 @@ strong, b {
   }
 
   .image-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  .more-work-grid {
     grid-template-columns: 1fr !important;
   }
 
@@ -785,6 +809,10 @@ strong, b {
   .project-section-text > div h2 {
     font-size: 28px !important;
     margin-bottom: 12px;
+  }
+
+  .project-section-text > div h2 ~ h2 {
+    margin-top: 32px !important;
   }
 
   .project-section p,
@@ -834,3 +862,4 @@ strong, b {
     height: 46px;
   }
 }
+

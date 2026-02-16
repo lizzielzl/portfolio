@@ -18,7 +18,7 @@ export default function FadeUp({
   children,
   delay = 0,
   duration = 0.6,
-  distance = 30,
+  distance = 15,
   once = true,
   whileInView: useWhileInView = false,
   className,

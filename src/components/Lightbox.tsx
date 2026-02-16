@@ -76,6 +76,24 @@ export default function Lightbox({
     return () => window.removeEventListener("keydown", handleKey);
   }, [onClose, goPrev, goNext]);
 
+  // Touch/swipe support for mobile
+  const touchStartX = useRef<number | null>(null);
+
+  const handleTouchStart = useCallback((e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  }, []);
+
+  const handleTouchEnd = useCallback(
+    (e: React.TouchEvent) => {
+      if (touchStartX.current === null) return;
+      const delta = touchStartX.current - e.changedTouches[0].clientX;
+      if (delta > 50) goNext(); // swipe left → next
+      if (delta < -50) goPrev(); // swipe right → prev
+      touchStartX.current = null;
+    },
+    [goNext, goPrev]
+  );
+
   // Prevent body scroll
   useEffect(() => {
     document.body.style.overflow = "hidden";
@@ -103,7 +121,12 @@ export default function Lightbox({
   return (
     <div className="lightbox-backdrop" onClick={handleBackdropClick}>
       {/* Main image area - clicks pass through to backdrop */}
-      <div className="lightbox-image-area" onClick={handleBackdropClick}>
+      <div
+        className="lightbox-image-area"
+        onClick={handleBackdropClick}
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
+      >
         <div
           className={`lightbox-image-wrapper${getTransitionClass()}`}
           onClick={(e) => e.stopPropagation()}

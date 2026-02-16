@@ -11,6 +11,7 @@ interface ImageGridProps {
   columns: number;
   alt: string;
   fullWidthImages?: number[]; // indices of images that should be full-width
+  mobileColumns?: number; // override column count on mobile (≤767px)
 }
 
 export default function ImageGrid({
@@ -19,6 +20,7 @@ export default function ImageGrid({
   columns,
   alt,
   fullWidthImages = [],
+  mobileColumns,
 }: ImageGridProps) {
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
@@ -34,7 +36,7 @@ export default function ImageGrid({
       {fullWidthImgs.map((img, j) => {
         const globalIndex = images.indexOf(img);
         return (
-          <FadeUp key={`fw-${j}`} whileInView delay={j * 0.1} duration={0.5}>
+          <FadeUp key={`fw-${j}`} whileInView delay={0} duration={0.5}>
             <div
               className="image-grid-clickable"
               style={{
@@ -61,7 +63,7 @@ export default function ImageGrid({
       {/* Grid images */}
       {gridImgs.length > 0 && (
         <div
-          className="image-grid"
+          className={`image-grid${mobileColumns ? ` image-grid-mobile-${mobileColumns}col` : ""}`}
           style={{
             display: "grid",
             gridTemplateColumns: `repeat(${columns}, 1fr)`,
@@ -71,7 +73,7 @@ export default function ImageGrid({
           {gridImgs.map((img, j) => {
             const globalIndex = images.indexOf(img);
             return (
-              <FadeUp key={j} whileInView delay={(j % columns) * 0.08} duration={0.5}>
+              <FadeUp key={j} whileInView delay={0} duration={0.5}>
                 <div
                   className="image-grid-clickable"
                   style={{ overflow: "hidden", cursor: "pointer" }}

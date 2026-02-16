@@ -42,9 +42,9 @@ function ProjectCard({ project, index }: { project: (typeof projects)[number]; i
   return (
     <FadeUp
       whileInView
-      delay={(index % 3) * 0.1}
+      delay={0}
       duration={0.5}
-      distance={25}
+      distance={12}
     >
       {card}
     </FadeUp>

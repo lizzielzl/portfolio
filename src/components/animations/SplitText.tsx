@@ -13,7 +13,7 @@ interface SplitTextProps {
 
 export default function SplitText({
   text,
-  stagger = 0.03,
+  stagger = 0,
   delay = 0,
   className,
   whileInView: useWhileInView = false,
@@ -30,7 +30,7 @@ export default function SplitText({
   };
 
   const charVariants = {
-    hidden: { opacity: 0, y: 15 },
+    hidden: { opacity: 0, y: 8 },
     visible: {
       opacity: 1,
       y: 0,

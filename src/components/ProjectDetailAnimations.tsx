@@ -15,7 +15,7 @@ export function AnimatedBreadcrumb({ children }: { children: ReactNode }) {
 
 export function AnimatedHeadline({ children }: { children: ReactNode }) {
   return (
-    <FadeUp delay={0.1} duration={0.6} distance={20}>
+    <FadeUp delay={0.1} duration={0.6} distance={10}>
       {children}
     </FadeUp>
   );
@@ -54,7 +54,7 @@ export function AnimatedHeroImage({
 
 export function AnimatedSection({ children }: { children: ReactNode }) {
   return (
-    <FadeUp whileInView duration={0.6} distance={25}>
+    <FadeUp whileInView duration={0.6} distance={12}>
       {children}
     </FadeUp>
   );
@@ -80,7 +80,7 @@ export function AnimatedMoreWorkCard({
   index: number;
 }) {
   return (
-    <FadeUp whileInView delay={index * 0.1} duration={0.5} distance={20}>
+    <FadeUp whileInView delay={0} duration={0.5} distance={10}>
       {children}
     </FadeUp>
   );

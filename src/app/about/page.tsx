@@ -125,15 +125,13 @@ export default function AboutPage() {
           <div className="page-title" style={{ marginBottom: 0 }}>
             <SplitText text="Work" whileInView />
           </div>
-          <StaggerChildren stagger={0.05} whileInView>
-            <div className="about-work-rows">
-              {workExperience.map((item, i) => (
-                <motion.div key={i} variants={childVariants} className="timeline-item">
-                  <span>{item.title}</span>
-                  <span className="timeline-date">{item.date}</span>
-                </motion.div>
-              ))}
-            </div>
+          <StaggerChildren stagger={0.05} whileInView className="about-work-rows">
+            {workExperience.map((item, i) => (
+              <motion.div key={i} variants={childVariants} className="timeline-item">
+                <span>{item.title}</span>
+                <span className="timeline-date">{item.date}</span>
+              </motion.div>
+            ))}
           </StaggerChildren>
         </div>
       </div>
@@ -146,15 +144,13 @@ export default function AboutPage() {
               <SplitText text="Education" whileInView />
             </span>
           </div>
-          <StaggerChildren stagger={0.05} whileInView>
-            <div className="about-edu-rows">
-              {education.map((item, i) => (
-                <motion.div key={i} variants={childVariants} className="timeline-item">
-                  <span>{item.title}</span>
-                  <span className="timeline-date">{item.date}</span>
-                </motion.div>
-              ))}
-            </div>
+          <StaggerChildren stagger={0.05} whileInView className="about-edu-rows">
+            {education.map((item, i) => (
+              <motion.div key={i} variants={childVariants} className="timeline-item">
+                <span>{item.title}</span>
+                <span className="timeline-date">{item.date}</span>
+              </motion.div>
+            ))}
           </StaggerChildren>
         </div>
       </div>

@@ -25,6 +25,7 @@ interface ProjectSection {
   images: string[]; // image filenames relative to /images/{slug}/
   columns?: number; // grid columns for image gallery (default 4)
   fullWidthImages?: number[]; // indices of images that should be full-width (1 col)
+  mobileColumns?: number; // override column count on mobile (≤767px)
 }
 
 interface ProjectDetail {
@@ -246,6 +247,7 @@ const projectDetails: Record<string, ProjectDetail> = {
         description:
           "I designed mobile versions to ensure a responsive user experience.",
         columns: 4,
+        mobileColumns: 2,
         images: [
           "16.png", "20.png", "18.png", "24.png",
           "23.png", "14.png", "21.png", "15.png",
@@ -480,6 +482,7 @@ const projectDetails: Record<string, ProjectDetail> = {
         description:
           "I created interactive prototypes from the wireframes.",
         columns: 4,
+        mobileColumns: 2,
         images: [
           "21.png", "19.png", "14.png", "11.png",
           "10.png", "16.png", "20.png", "12.png",
@@ -590,6 +593,7 @@ const projectDetails: Record<string, ProjectDetail> = {
         description:
           "I proposed changing the brand colors to a more youthful and energetic style. After several iterations and ongoing discussions with stakeholders, I chose a bolder design direction and created the final prototypes for the event creation task flow.",
         columns: 4,
+        mobileColumns: 2,
         images: [
           "10.png", "09.png", "13.png", "07.png",
           "06.png", "08.png", "11.png", "12.png",
@@ -754,6 +758,7 @@ export default async function ProjectPage({ params }: PageProps) {
                 columns={cols}
                 alt={`${project.title} - ${section.title}`}
                 fullWidthImages={fullWidth}
+                mobileColumns={section.mobileColumns}
               />
             )}
 
@@ -778,6 +783,7 @@ export default async function ProjectPage({ params }: PageProps) {
           <AnimatedMoreWorkTitle />
         </div>
         <div
+          className="more-work-grid"
           style={{
             display: "grid",
             gridTemplateColumns: "1fr 1fr",
