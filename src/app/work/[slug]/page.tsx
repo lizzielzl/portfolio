@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import fs from "fs";
@@ -602,6 +603,26 @@ const projectDetails: Record<string, ProjectDetail> = {
     ],
   },
 };
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const project = projects.find((p) => p.slug === slug);
+  const details = projectDetails[slug];
+
+  if (!project || !details) {
+    return {};
+  }
+
+  return {
+    title: `${project.title} — ZILI LIU`,
+    description: details.summary,
+    openGraph: {
+      title: `${project.title} — ZILI LIU`,
+      description: details.summary,
+      images: [project.thumbnail],
+    },
+  };
+}
 
 export default async function ProjectPage({ params }: PageProps) {
   const { slug } = await params;

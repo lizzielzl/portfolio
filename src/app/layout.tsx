@@ -11,9 +11,14 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://zililiu.com"),
   title: "ZILI LIU — Product Designer & Content Creator",
   description:
     "Product designer with 4+ years of experience in UI/UX, visual and motion design. Lead designer for AI products including Indigo (#1 on Product Hunt) and Voyage (500+ brands).",
+  openGraph: {
+    siteName: "ZILI LIU",
+    type: "website",
+  },
 };
 
 export default function RootLayout({
