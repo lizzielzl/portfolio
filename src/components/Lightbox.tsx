@@ -28,6 +28,10 @@ export default function Lightbox({
   const transitionTimeout = useRef<NodeJS.Timeout | null>(null);
   const prevIndex = useRef(currentIndex);
 
+  // Focus management refs
+  const backdropRef = useRef<HTMLDivElement>(null);
+  const previouslyFocusedRef = useRef<HTMLElement | null>(null);
+
   const goPrev = useCallback(() => {
     if (hasPrev) {
       setSlideDirection("right"); // Image slides in from left, so it moves right
@@ -76,6 +80,31 @@ export default function Lightbox({
     return () => window.removeEventListener("keydown", handleKey);
   }, [onClose, goPrev, goNext]);
 
+  // Focus trap
+  useEffect(() => {
+    const handleTab = (e: KeyboardEvent) => {
+      if (e.key !== "Tab") return;
+      const focusableElements = backdropRef.current?.querySelectorAll(
+        'button, [href], [tabindex]:not([tabindex="-1"])'
+      );
+      if (!focusableElements || focusableElements.length === 0) return;
+
+      const first = focusableElements[0] as HTMLElement;
+      const last = focusableElements[focusableElements.length - 1] as HTMLElement;
+
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
+
+    window.addEventListener("keydown", handleTab);
+    return () => window.removeEventListener("keydown", handleTab);
+  }, []);
+
   // Touch/swipe support for mobile
   const touchStartX = useRef<number | null>(null);
 
@@ -94,11 +123,15 @@ export default function Lightbox({
     [goNext, goPrev]
   );
 
-  // Prevent body scroll
+  // Prevent body scroll and manage focus
   useEffect(() => {
+    previouslyFocusedRef.current = document.activeElement as HTMLElement;
     document.body.style.overflow = "hidden";
+    backdropRef.current?.focus();
+
     return () => {
       document.body.style.overflow = "";
+      previouslyFocusedRef.current?.focus();
     };
   }, []);
 
@@ -119,7 +152,15 @@ export default function Lightbox({
   };
 
   return (
-    <div className="lightbox-backdrop" onClick={handleBackdropClick}>
+    <div
+      ref={backdropRef}
+      className="lightbox-backdrop"
+      onClick={handleBackdropClick}
+      role="dialog"
+      aria-modal="true"
+      aria-label={`Image lightbox: ${alt}`}
+      tabIndex={-1}
+    >
       {/* Main image area - clicks pass through to backdrop */}
       <div
         className="lightbox-image-area"
@@ -133,7 +174,7 @@ export default function Lightbox({
         >
           <Image
             src={images[displayIndex]}
-            alt={`${alt} ${displayIndex + 1}`}
+            alt={`${alt}, image ${displayIndex + 1} of ${images.length}`}
             width={1440}
             height={900}
             style={{
@@ -203,7 +244,7 @@ export default function Lightbox({
               key={i}
               className={`lightbox-thumb${i === currentIndex ? " active" : ""}`}
               onClick={() => onNavigate(i)}
-              aria-label={`View image ${i + 1}`}
+              aria-label={`View image ${i + 1} of ${images.length}`}
             >
               <Image
                 src={img}

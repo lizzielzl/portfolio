@@ -5,6 +5,8 @@
   --foreground: #000000;
   --gray-light: #f5f5f5;
   --gray-mid: #888888;
+  --gray-border: #e0e0e0;
+  --gray-muted: #b3b3b3;
   --sidebar-width: 200px;
 }
 
@@ -517,7 +519,7 @@ strong, b {
 .expand-hint {
   font-size: 12px;
   text-transform: uppercase;
-  color: #b3b3b3;
+  color: var(--gray-muted);
   text-align: center;
   letter-spacing: normal;
   padding: 20px 0 0;
@@ -861,5 +863,30 @@ strong, b {
     width: 70px;
     height: 46px;
   }
+}
+
+/* Skip to content link */
+.skip-to-content {
+  position: absolute;
+  left: -9999px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  z-index: 10000;
+  padding: 8px 16px;
+  background: var(--foreground);
+  color: var(--background);
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.skip-to-content:focus {
+  position: fixed;
+  top: 8px;
+  left: 8px;
+  width: auto;
+  height: auto;
+  overflow: visible;
 }
 

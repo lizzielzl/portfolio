@@ -659,8 +659,27 @@ export default async function ProjectPage({ params }: PageProps) {
   // Hero image is always the first
   const heroImage = allImages.length > 0 ? allImages[0] : null;
 
+  const creativeWorkSchema = {
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    name: project.title,
+    description: details.summary,
+    creator: {
+      "@type": "Person",
+      name: "Zili Liu",
+    },
+    dateCreated: details.date,
+    keywords: details.keywords.join(", "),
+    image: `https://zililiu.com${project.thumbnail}`,
+    url: `https://zililiu.com/work/${slug}`,
+  };
+
   return (
     <div className="page-padding">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(creativeWorkSchema) }}
+      />
       {/* Breadcrumb */}
       <AnimatedBreadcrumb>
         <div className="breadcrumb" style={{ marginBottom: 44 }}>
@@ -696,7 +715,7 @@ export default async function ProjectPage({ params }: PageProps) {
       </AnimatedHeadline>
 
       {/* Divider */}
-      <hr style={{ border: "none", borderTop: "1px solid #e0e0e0", margin: "22px 0" }} />
+      <hr style={{ border: "none", borderTop: "1px solid var(--gray-border)", margin: "22px 0" }} />
 
       {/* Info row */}
       <AnimatedInfoRow>
@@ -789,7 +808,7 @@ export default async function ProjectPage({ params }: PageProps) {
                 style={{
                   width: "100%",
                   height: 1,
-                  background: "#e0e0e0",
+                  background: "var(--gray-border)",
                   marginTop: 80,
                 }}
               />

@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 export default function Home() {
   return (
     <div
@@ -8,10 +10,18 @@ export default function Home() {
         right: 0,
         bottom: 0,
         zIndex: -1,
-        backgroundImage: "url(/images/hero.jpg)",
-        backgroundSize: "cover",
-        backgroundPosition: "50% 40%",
       }}
-    />
+    >
+      <Image
+        src="/images/hero.jpg"
+        alt="Hero — Zili Liu, Product Designer"
+        fill
+        priority
+        style={{
+          objectFit: "cover",
+          objectPosition: "50% 40%",
+        }}
+      />
+    </div>
   );
 }

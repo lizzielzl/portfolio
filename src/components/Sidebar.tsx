@@ -10,10 +10,10 @@ const navLinks = [
 ];
 
 const socialLinks = [
-  { href: "https://www.linkedin.com/in/lizzielzl/", label: "LinkedIn" },
-  { href: "https://www.instagram.com/lizzielzl/", label: "Instagram" },
-  { href: "https://www.tiktok.com/@lizzielzl_", label: "TikTok" },
-  { href: "https://www.xiaohongshu.com/user/profile/5a64579111be10376cf202fb", label: "Rednote" },
+  { href: "https://www.linkedin.com/in/lizzielzl/", label: "LinkedIn", ariaLabel: "LinkedIn profile for Zili Liu" },
+  { href: "https://www.instagram.com/lizzielzl/", label: "Instagram", ariaLabel: "Instagram profile for Zili Liu" },
+  { href: "https://www.tiktok.com/@lizzielzl_", label: "TikTok", ariaLabel: "TikTok profile for Zili Liu" },
+  { href: "https://www.xiaohongshu.com/user/profile/5a64579111be10376cf202fb", label: "Rednote", ariaLabel: "Rednote profile for Zili Liu" },
 ];
 
 export default function Sidebar() {
@@ -90,6 +90,7 @@ export default function Sidebar() {
             target="_blank"
             rel="noopener noreferrer"
             className="social-link"
+            aria-label={link.ariaLabel}
           >
             {link.label}
           </a>
@@ -102,6 +103,7 @@ export default function Sidebar() {
         <a
           href="mailto:lizzie@zililiu.com"
           className="social-link"
+          aria-label="Send email to lizzie@zililiu.com"
         >
           lizzie@zililiu.com
         </a>

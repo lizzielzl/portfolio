@@ -16,6 +16,7 @@ function ProjectCard({ project, index }: { project: (typeof projects)[number]; i
           alt={project.title}
           width={400}
           height={300}
+          priority={index < 3}
           style={{ width: "100%", height: "auto", display: "block" }}
           unoptimized={project.thumbnail.endsWith(".gif")}
         />

@@ -81,7 +81,7 @@ export default function ImageGrid({
                 >
                   <Image
                     src={`/images/${slug}/${img}`}
-                    alt={`${alt} ${j + 1}`}
+                    alt={`${alt}, image ${j + 1} of ${gridImgs.length}`}
                     width={720}
                     height={450}
                     style={{ width: "100%", height: "auto", display: "block" }}
